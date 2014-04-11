@@ -36,6 +36,7 @@ public class Gateway extends ComponentBase {
     public static String IDMAP_FILE = "idmap.ini";
     public static String XML_DIR = "xmls";
     public static String RES_DEF_DIR = "resources";
+    public static String BASE_DIR = "";
 
     private HashMap<String, Property> handlers = new HashMap<String, Property>();
     private ArrayList<Resource> resources = new ArrayList<Resource>();
@@ -44,20 +45,24 @@ public class Gateway extends ComponentBase {
     private Class<PreProcessor> preprocessorClass;
 
     public Properties loadConfiguration() {
-        ConfigurationFile cf = new ConfigurationFile();
-        String configPath = getComponentBase() + File.separatorChar + ConfigurationFile.fileName;
-        System.out.println(configPath);
         IDMAP_FILE = getComponentBase() + File.separatorChar + IDMAP_FILE;
         XML_DIR = getComponentBase() + File.separatorChar + XML_DIR;
         RES_DEF_DIR = getComponentBase() + File.separatorChar + RES_DEF_DIR;
-        System.out.println("***\n" + IDMAP_FILE + "\n" + XML_DIR + "\n" + RES_DEF_DIR + "\n***");
+        BASE_DIR = getComponentBase();
+        ConfigurationFile.fileName = getComponentBase() + File.separatorChar + ConfigurationFile.fileName;
 
-        Properties config = cf.loadConfiguration(configPath);
+        ConfigurationFile cf = new ConfigurationFile();
+//        String configPath = getComponentBase() + File.separatorChar + ConfigurationFile.fileName;
+//        System.out.println(configPath);
+
+//        System.out.println("***\n" + IDMAP_FILE + "\n" + XML_DIR + "\n" + RES_DEF_DIR + "\n***");
+
+        Properties config = cf.loadConfiguration();
 
         if (config == null) {
             logger.info("Configuration file not found, recreating...");
             config = cf.initDefaultConfiguration();
-            cf.updateFile(config, configPath);
+            cf.updateFile(config);
         }
 
         return config;
@@ -74,6 +79,7 @@ public class Gateway extends ComponentBase {
                 || !config.containsKey("client.commandhandler")
                 || !config.containsKey("client.preprocessor")) {
             logger.error("property [server.host], [server.port], [client.commandhandler] and [client.preprocessor] must be specified.");
+            return;
         }
 
         DC.getConfiguration().setProperty("server.host", config.getProperty("server.host"));
@@ -88,11 +94,13 @@ public class Gateway extends ComponentBase {
             commandHandlerClass = (Class<CommandHandler>)classLoader.loadClass(config.getProperty("client.commandhandler"));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            return;
         }
         try {
             preprocessorClass = (Class<PreProcessor>)classLoader.loadClass(config.getProperty("client.preprocessor"));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            return;
         }
 
         try {
