@@ -6,9 +6,9 @@
 		<key>3</key>
 		<LocalID>1</LocalID>
 		<gateway>192.168.119.254</gateway>
-		<description>网关</description>
+		<description>温度，湿度</description>
         
-        <geo>39.97609342742838,116.21328973822155</geo>
+        <geo>116.21328973822155,39.97609342742838</geo>
         <height>1</height>
         <name>网关</name>
         

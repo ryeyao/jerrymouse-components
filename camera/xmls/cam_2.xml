@@ -16,6 +16,9 @@
 			<y>39.904214</y>
 			<h>1</h>
 		</location>
+        <geo>116.21344890771252,39.9760839754979</geo>
+        <height>1</height>
+        <name>信工所的视频</name>
 		
 		<devicetype name="视频">
 			<type>视频</type>

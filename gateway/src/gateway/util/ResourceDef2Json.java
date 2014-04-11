@@ -18,6 +18,7 @@ public class ResourceDef2Json {
 
     public static JsonObject createJson(Resource res) {
         JsonObject jo = new JsonObject();
+
         jo.addProperty("rid", res.getId());
 //        jo.add("check", JsonNull.INSTANCE);
         jo.addProperty("check", "");
@@ -27,19 +28,19 @@ public class ResourceDef2Json {
         jo.add("description", new GsonBuilder().create().toJsonTree(res.getDefinition().description));
 
         jo.add("properties", new GsonBuilder().create().toJsonTree(res.getDefinition().properties));
-        for(Map.Entry<String, JsonElement> e: jo.getAsJsonObject("properties").entrySet()) {
-
-            JsonObject pe = e.getValue().getAsJsonObject();
-            String direction = pe.get("direction").getAsString();
-            if(direction == "RES_2_USER") {
-                direction = "RESOURCE_2_USER";
-            } else if(direction == "USER_2_RES") {
-                direction = "USER_2_RESOURCE";
-            }
-
-            pe.remove("direction");
-            pe.addProperty("flow", direction);
-        }
+//        for(Map.Entry<String, JsonElement> e: jo.getAsJsonObject("properties").entrySet()) {
+//
+//            JsonObject pe = e.getValue().getAsJsonObject();
+//            String direction = pe.get("direction").getAsString();
+//            if(direction == "RES_2_USER") {
+//                direction = "RESOURCE_2_USER";
+//            } else if(direction == "USER_2_RES") {
+//                direction = "USER_2_RESOURCE";
+//            }
+//
+//            pe.remove("direction");
+//            pe.addProperty("flow", direction);
+//        }
 
         jo.add("relationship", new GsonBuilder().create().toJsonTree(res.getDefinition().relationship));
 

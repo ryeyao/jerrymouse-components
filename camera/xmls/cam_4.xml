@@ -12,10 +12,11 @@
 		<description>camera</description>
 		<location id="1">
 			<name>Beijing</name>
-			<x>116.40741300000002</x>
-			<y>39.904214</y>
+			<x>116.21325074738968</x>
+			<y>39.976102818449604</y>
 			<h>1</h>
 		</location>
+         <geo>116.21325074738968,39.976102818449604</geo>
 		
 		<devicetype name="视频">
 			<type>视频</type>

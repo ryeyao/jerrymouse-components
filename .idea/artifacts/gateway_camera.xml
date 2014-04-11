@@ -22,6 +22,7 @@
         <element id="file-copy" path="$PROJECT_DIR$/camera/component.properties" />
         <element id="file-copy" path="$PROJECT_DIR$/camera/config.properties" />
         <element id="file-copy" path="$PROJECT_DIR$/../../wshare-2.0-gateway-1.0/conf/log4j2.xml" />
+        <element id="file-copy" path="$PROJECT_DIR$/camera/idmap.ini" />
       </element>
     </root>
   </artifact>

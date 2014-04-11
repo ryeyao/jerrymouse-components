@@ -1,6 +1,6 @@
 package sensor.udp;
 
-import cn.iie.jerrymouse.util.StoppableThread;
+import cn.iie.gaia.util.StoppableLoopThread;
 import gateway.util.ConfigurationFile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +14,7 @@ import java.util.Properties;
 /**
  * Created by Rye on 2/22/14.
  */
-public class UDPServer extends StoppableThread {
+public class UDPServer extends StoppableLoopThread {
 
     private String host;
     private int port;
@@ -40,7 +40,7 @@ public class UDPServer extends StoppableThread {
     }
 
     @Override
-    public void runTask() {
+    public void loopTask() {
 
         logger.info("cn.iie.jerrymouse.sensor.udp Server listening on port " + port);
         DatagramPacket recvPacket = new DatagramPacket(recvBuffer, recvBuffer.length);

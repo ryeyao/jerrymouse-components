@@ -24,17 +24,24 @@ import java.util.HashSet;
  */
 public class XML2ResourceDef {
 
-    private DocumentBuilder db;
+    private static DocumentBuilderFactory dbf;
+    private static DocumentBuilder db;
 
-    public XML2ResourceDef() throws ParserConfigurationException {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        db = dbf.newDocumentBuilder();
+    static {
+        dbf = DocumentBuilderFactory.newInstance();
+        try {
+            db = dbf.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+
     }
-    public ResourceDefinition parse(String xmlPath) throws IOException, SAXException {
+
+    public static ResourceDefinition parse(String xmlPath) throws IOException, SAXException {
 
         ResourceDefinition def = new ResourceDefinition();
 
-        File xmlFile = new File(xmlPath);
+         File xmlFile = new File(xmlPath);
         Document doc = db.parse(xmlFile);
 
         // Optional but recommended
@@ -61,13 +68,30 @@ public class XML2ResourceDef {
                 def.name = prop.getAttributes().getNamedItem("name").getNodeValue();
                 def.tags = new HashSet<String>();
                 def.tags.add(def.name);
-                def.tags.add("controllable");
-                def.tags.add("adjustable");
+//                def.tags.add("controllable");
+//                def.tags.add("adjustable");
+//                def.tags.add("geo");
 
                 def.description.put("manufacturer", "iie.iie");
                 def.description.put("birthdate", "201308");
             }
             else if (nodeName.equalsIgnoreCase("datatype")) {
+            }
+            else if (nodeName.equalsIgnoreCase("location")) {
+                // Get all location children
+                NodeList locList = prop.getChildNodes();
+                String x = "", y = "";
+                for(int j = 0; j < locList.getLength(); j++) {
+                    Node locCNode = locList.item(j);
+                    if(locCNode.getNodeName().equalsIgnoreCase("x")) {
+                        x = locCNode.getTextContent();
+                    } else if(locCNode.getNodeName().equalsIgnoreCase("y")) {
+                        y = locCNode.getTextContent();
+                    }
+                }
+                String geoStr = x + "," + y;
+                def.description.put("geo", geoStr);
+
             }
             else {
                 def.description.put(nodeName.toLowerCase(), prop.getTextContent());
@@ -87,6 +111,7 @@ public class XML2ResourceDef {
 
             PropertyDefinition propDef = new PropertyDefinition();
             propDef.name = dtNode.getAttributes().getNamedItem("name").getNodeValue();
+            def.tags.add(propDef.name);
             propDef.direction = Direction.RES_2_USER;
             propDef.dynamic = true;
             propDef.description = new HashMap<String, String>();

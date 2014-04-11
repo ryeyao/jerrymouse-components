@@ -7,7 +7,7 @@
 		<LocalID>210</LocalID>
 		<gateway>192.168.119.254</gateway>
 		<description>展灯</description>
-        <geo>39.976079304137585,116.2132500416736</geo>
+        <geo>116.2132500416736,39.976079304137585</geo>
         <height>1</height>
         <name>展灯</name>
 		
