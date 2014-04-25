@@ -23,25 +23,32 @@ public class CameraCMDHandler extends CommandHandler {
     private InetSocketAddress address;
     private Socket socket;
     private HashMap<String, byte[]> cmdHex = new HashMap<String, byte[]>();
+    private HashMap ip2camera = new HashMap();
     private String localid;
 
     @Override
     public void init() {
-        cmdHex.put("stop", new byte[]{0x08,0x03,0x04,0x00});
-        cmdHex.put("up", new byte[]{0x08,0x03,0x04,0x01});
-        cmdHex.put("down", new byte[]{0x08,0x03,0x04,0x02});
-        cmdHex.put("right", new byte[]{0x08,0x03,0x04,0x03});
-        cmdHex.put("left", new byte[]{0x08,0x03,0x04,0x04});
-        cmdHex.put("zoomout", new byte[]{0x08,0x03,0x04,0x05});
-        cmdHex.put("zoomin", new byte[]{0x08,0x03,0x04,0x06});
-        cmdHex.put("setposition", new byte[]{0x08,0x03,0x04,0x07});
-        cmdHex.put("gotoposition", new byte[]{0x08,0x03,0x04,0x08});
-//        cmdHex.put("takePhoto", new byte[]{0x83,0x01,0x04});
-        cmdHex.put("twoDirectionPos", new byte[]{});
+        ip2camera.put("192.168.111.240", 0x01);
+        ip2camera.put("192.168.111.241", 0x02);
+        ip2camera.put("192.168.111.242", 0x03);
+        ip2camera.put("192.168.110.221", 0x04);
 
         String host = this.getRes().getDefinition().description.get("localaddr");
         int port = Integer.valueOf(this.getRes().getDefinition().description.get("localport"));
         localid = this.getRes().getDefinition().description.get("localid");
+
+        byte cameraID = (byte)ip2camera.get(host);
+        cmdHex.put("stop", new byte[]{0x08,cameraID,0x04,0x00});
+        cmdHex.put("up", new byte[]{0x08,cameraID,0x04,0x01});
+        cmdHex.put("down", new byte[]{0x08,cameraID,0x04,0x02});
+        cmdHex.put("right", new byte[]{0x08,cameraID,0x04,0x03});
+        cmdHex.put("left", new byte[]{0x08,cameraID,0x04,0x04});
+        cmdHex.put("zoomout", new byte[]{0x08,cameraID,0x04,0x05});
+        cmdHex.put("zoomin", new byte[]{0x08,cameraID,0x04,0x06});
+        cmdHex.put("setposition", new byte[]{0x08,cameraID,0x04,0x07});
+        cmdHex.put("gotoposition", new byte[]{0x08,cameraID,0x04,0x08});
+//        cmdHex.put("takePhoto", new byte[]{0x83,0x01,0x04});
+        cmdHex.put("twoDirectionPos", new byte[]{});
 
         address = new InetSocketAddress(host, port);
         logger.info("Initialize camera [{}] [{}]", localid, address);

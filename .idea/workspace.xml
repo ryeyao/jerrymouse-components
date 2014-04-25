@@ -134,6 +134,7 @@
     <file path="/ResourceDef2Json.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1398060065602" ignored="false" />
     <file path="$PROJECT_DIR$/../../NBU/result.txt" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1398233164456" ignored="false" />
     <file path="/testCameraCMDHandler.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1398239995279" ignored="false" />
+    <file path="/CameraCMDHandler.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1398410017363" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,49 +284,47 @@
     <splitter split-orientation="horizontal" split-proportion="0.5003408">
       <split-first>
         <leaf>
-          <file leaf-file-name="cam_1.json" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/camera/resources/cam_1.json">
+          <file leaf-file-name="SensorPreProcessor.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/sensor/src/sensor/SensorPreProcessor.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+                <state line="28" column="45" selection-start="664" selection-end="664" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="1.json" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/sensor/resources/1.json">
+          <file leaf-file-name="UDPDataHandler.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPDataHandler.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="0" column="27" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0">
+                <state line="25" column="22" selection-start="702" selection-end="702" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="203.json" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/sensor/resources/203.json">
+          <file leaf-file-name="UDPPacket.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPPacket.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="0" column="77" selection-start="77" selection-end="77" vertical-scroll-proportion="-0.0">
+                <state line="76" column="45" selection-start="1636" selection-end="1636" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="CameraCMDHandler.java" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraCMDHandler.java">
+          <file leaf-file-name="config.properties" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/camera/config.properties">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="33" column="59" selection-start="1100" selection-end="1100" vertical-scroll-proportion="0.45">
+                <state line="6" column="44" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="testCameraCMDHandler.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/camera/src/test/testCameraCMDHandler.java">
+          <file leaf-file-name="config.properties" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/sensor/config.properties">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="15" column="53" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0">
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
+                <state line="7" column="44" selection-start="206" selection-end="206" vertical-scroll-proportion="0.30381945">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -337,7 +336,7 @@
           <file leaf-file-name="Json2ResourceDef.java" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="21" column="52" selection-start="564" selection-end="564" vertical-scroll-proportion="0.05">
+                <state line="21" column="52" selection-start="564" selection-end="564" vertical-scroll-proportion="0.044404972">
                   <folding />
                 </state>
               </provider>
@@ -396,7 +395,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="2" />
+    <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -411,8 +410,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -509,6 +506,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="sensor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sensor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jerrymouse-devices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jerrymouse-devices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="camera" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -559,6 +578,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -575,13 +596,13 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="FullScreen" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
     <property name="gradle.tool.window.active" value="Tasks" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -691,6 +712,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -717,19 +751,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -820,13 +841,13 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3997773" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997773" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962137" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -834,7 +855,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JSON Formatter" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2171825" sideWeight="0.6002227" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2171825" sideWeight="0.6703786" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -908,38 +929,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://F:/LIBs/JavaLIB/JSON/gson/google-gson-2.2.4/gson-2.2.4.jar!/com/google/gson/stream/JsonReader.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="165" selection-end="165" vertical-scroll-proportion="0.24177949" />
-      </provider>
-    </entry>
-    <entry file="jar://F:/LIBs/wshare-2.0/wsdc.api/wsdc-entity.jar!/wshare/dc/resource/ResourceDefinition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="31" selection-start="527" selection-end="527" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://F:/LIBs/wshare-2.0/wsdc.api/wsdc-entity.jar!/wshare/dc/resource/PropertyDefinition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="393" selection-end="393" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/camera/idmap.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sensor/idmap.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="37" selection-start="887" selection-end="887" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="52" selection-start="564" selection-end="564" vertical-scroll-proportion="0.05">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/XML2ResourceDef.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="0" selection-start="745" selection-end="745" vertical-scroll-proportion="0.0">
@@ -949,9 +938,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/ResourceDef2Json.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="1" selection-start="994" selection-end="994" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="31" column="1" selection-start="994" selection-end="994" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sensor/xmls(1)/174.xml">
@@ -963,9 +950,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/camera/xmls/cam_1.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="21" selection-start="212" selection-end="212" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="5" column="21" selection-start="212" selection-end="212" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gateway/src/gateway/Gateway.java">
@@ -999,15 +984,55 @@
     <entry file="file://$PROJECT_DIR$/camera/src/test/testCameraCMDHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="53" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraCMDHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="59" selection-start="1100" selection-end="1100" vertical-scroll-proportion="0.45">
+        <state line="26" column="26" selection-start="803" selection-end="803" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sensor/src/sensor/SensorCMDHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="32" selection-start="844" selection-end="844" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sensor/src/sensor/SensorPreProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="45" selection-start="664" selection-end="664" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPDataHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="22" selection-start="702" selection-end="702" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPPacket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="45" selection-start="1636" selection-end="1636" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/camera/config.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="44" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sensor/config.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="44" selection-start="206" selection-end="206" vertical-scroll-proportion="0.30381945">
           <folding />
         </state>
       </provider>
