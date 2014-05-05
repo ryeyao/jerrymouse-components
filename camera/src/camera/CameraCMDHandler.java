@@ -28,16 +28,22 @@ public class CameraCMDHandler extends CommandHandler {
 
     @Override
     public void init() {
-        ip2camera.put("192.168.111.240", 0x01);
-        ip2camera.put("192.168.111.241", 0x02);
-        ip2camera.put("192.168.111.242", 0x03);
-        ip2camera.put("192.168.110.221", 0x04);
+        ip2camera.put("192.168.111.240", (byte)0x01);
+        ip2camera.put("192.168.111.241", (byte)0x02);
+        ip2camera.put("192.168.111.242", (byte)0x03);
+        ip2camera.put("192.168.110.221", (byte)0x04);
 
         String host = this.getRes().getDefinition().description.get("localaddr");
         int port = Integer.valueOf(this.getRes().getDefinition().description.get("localport"));
         localid = this.getRes().getDefinition().description.get("localid");
 
-        byte cameraID = (byte)ip2camera.get(host);
+        byte cameraID;
+        if(ip2camera.containsKey(host)) {
+            cameraID = (byte)ip2camera.get(host);
+        } else {
+            cameraID = 0x00;
+        }
+
         cmdHex.put("stop", new byte[]{0x08,cameraID,0x04,0x00});
         cmdHex.put("up", new byte[]{0x08,cameraID,0x04,0x01});
         cmdHex.put("down", new byte[]{0x08,cameraID,0x04,0x02});
