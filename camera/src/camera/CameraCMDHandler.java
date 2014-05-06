@@ -39,7 +39,7 @@ public class CameraCMDHandler extends CommandHandler {
 
         byte cameraID;
         if(ip2camera.containsKey(host)) {
-            cameraID = (byte)ip2camera.get(host);
+            cameraID = (Byte)ip2camera.get(host);
         } else {
             cameraID = 0x00;
         }

@@ -36,6 +36,7 @@ public class UDPClient {
 
         sendBuffer = new byte[1024];
         recvBuffer = new byte[1024];
+        logger.info("Done.");
     }
 
     public void send(byte[] data) throws IOException {

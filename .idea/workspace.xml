@@ -3,6 +3,7 @@
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="gateway-camera" />
+      <artifact name="gateway-sensor" />
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
@@ -50,7 +51,7 @@
     <file path="$PROJECT_DIR$/../../wshare-2.0-gateway-1.0/src/META-INF/MANIFEST.MF" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397110574373" ignored="false" />
     <file path="$PROJECT_DIR$/../../wshare-2.0-gateway-1.0/src/cn/iie/gaia/startup/GaiaProperties.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1396960639991" ignored="false" />
     <file path="/GaiaProperties.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1396960637977" ignored="false" />
-    <file path="/Gateway.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1398140020433" ignored="false" />
+    <file path="/Gateway.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1399357540600" ignored="false" />
     <file path="/UDPServer.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397204345435" ignored="false" />
     <file path="$PROJECT_DIR$/.idea/artifacts/gateway_jar.xml" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397008492678" ignored="false" />
     <file path="$PROJECT_DIR$/.idea/artifacts/gateway.xml" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397026896777" ignored="false" />
@@ -67,7 +68,7 @@
     <file path="$PROJECT_DIR$/../../wshare-2.0-gateway-1.0/src/cn/iie/testComp.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397024280934" ignored="false" />
     <file path="$PROJECT_DIR$/../../wshare-2.0-gateway-1.0/src/cn/iie/gaia/Component.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397028931064" ignored="false" />
     <file path="/Component.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397028931064" ignored="false" />
-    <file path="/ConfigurationFile.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397025977928" ignored="false" />
+    <file path="/ConfigurationFile.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1399341779722" ignored="false" />
     <file path="/config.properties" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397206057405" ignored="false" />
     <file path="$PROJECT_DIR$/../../wshare-2.0-gateway-1.0/src/cn/iie/gaia/entity/StandardComponent.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397028533234" ignored="false" />
     <file path="/ConfigPropertiesBase.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397029801889" ignored="false" />
@@ -134,7 +135,7 @@
     <file path="/ResourceDef2Json.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1398060065602" ignored="false" />
     <file path="$PROJECT_DIR$/../../NBU/result.txt" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1398233164456" ignored="false" />
     <file path="/testCameraCMDHandler.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1398239995279" ignored="false" />
-    <file path="/CameraCMDHandler.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1399188035720" ignored="false" />
+    <file path="/CameraCMDHandler.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1399342592937" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,6 +160,7 @@
     <sortChildren value="false" />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -272,7 +274,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </line_breakpoints>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -281,49 +282,50 @@
     <favorites_list name="jerrymouse-devices" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5003408">
+    <splitter split-orientation="horizontal" split-proportion="0.5081967">
       <split-first>
         <leaf>
-          <file leaf-file-name="SensorPreProcessor.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/sensor/src/sensor/SensorPreProcessor.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="26" column="25" selection-start="617" selection-end="617" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="UDPDataHandler.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPDataHandler.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="35" column="8" selection-start="1015" selection-end="1015" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="UDPClient.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPClient.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="30" column="40" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ConfigurationFile.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/ConfigurationFile.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="69" column="33" selection-start="1897" selection-end="1897" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Gateway.java" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="Gateway.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gateway/src/gateway/Gateway.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="189" column="36" selection-start="7482" selection-end="7482" vertical-scroll-proportion="0.36132812">
+                <state line="262" column="19" selection-start="10191" selection-end="10191" vertical-scroll-proportion="0.0">
+                  <folding>
+                    <element signature="e#1541#1559#0" expanded="true" />
+                    <element signature="e#7170#7288#0" expanded="true" />
+                    <element signature="e#7277#7278#0" expanded="true" />
+                    <element signature="e#7378#9534#0" expanded="true" />
+                    <element signature="e#9519#9520#0" expanded="true" />
+                    <element signature="e#12265#12403#0" expanded="true" />
+                    <element signature="e#12388#12389#0" expanded="true" />
+                    <element signature="e#12624#15113#0" expanded="true" />
+                    <element signature="e#15094#15095#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="idmap.ini" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/sensor/idmap.ini">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="7" column="39" selection-start="315" selection-end="315" vertical-scroll-proportion="-1.573741">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ServiceLoader.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="jar://C:/Program Files/Java/jdk1.7.0_21/src.zip!/java/util/ServiceLoader.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="429" column="23" selection-start="17037" selection-end="17037" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="CameraCMDHandler.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraCMDHandler.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="30" column="43" selection-start="888" selection-end="888" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
@@ -336,7 +338,7 @@
           <file leaf-file-name="Json2ResourceDef.java" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="21" column="52" selection-start="564" selection-end="564" vertical-scroll-proportion="0.046904314">
+                <state line="34" column="47" selection-start="997" selection-end="997" vertical-scroll-proportion="0.10865562">
                   <folding />
                 </state>
               </provider>
@@ -354,8 +356,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/gateway/src/gateway/util/ConfigurationFile.java" />
-        <option value="$PROJECT_DIR$/camera/config.properties" />
         <option value="$PROJECT_DIR$/sensor/xmls/174.xml" />
         <option value="$PROJECT_DIR$/sensor/src/sensor/udp/UDPServer.java" />
         <option value="$PROJECT_DIR$/sensor/config.properties" />
@@ -367,9 +367,11 @@
         <option value="$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java" />
         <option value="$PROJECT_DIR$/gateway/src/gateway/util/ResourceDef2Json.java" />
         <option value="$PROJECT_DIR$/sensor/idmap.ini" />
-        <option value="$PROJECT_DIR$/gateway/src/gateway/Gateway.java" />
         <option value="$PROJECT_DIR$/camera/src/test/testCameraCMDHandler.java" />
+        <option value="$PROJECT_DIR$/gateway/src/gateway/util/ConfigurationFile.java" />
+        <option value="$PROJECT_DIR$/sensor/src/sensor/udp/UDPClient.java" />
         <option value="$PROJECT_DIR$/camera/src/camera/CameraCMDHandler.java" />
+        <option value="$PROJECT_DIR$/gateway/src/gateway/Gateway.java" />
       </list>
     </option>
   </component>
@@ -395,7 +397,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
+    <option name="STATE" value="2" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -411,6 +413,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -425,6 +428,64 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="wsdc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jerrymouse-devices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wsdc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wsdc-api.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jerrymouse-devices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wsdc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wsdc-api.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jerrymouse-devices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wsdc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rpc-core.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -617,67 +678,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="camera" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="camera" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="camera" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="camera" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -945,7 +947,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34101382" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32949308" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -953,7 +955,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JSON Formatter" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24785802" sideWeight="0.65898615" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21603428" sideWeight="0.6705069" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1027,78 +1029,19 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/camera/xmls/cam_1.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="21" selection-start="212" selection-end="212" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/camera/resources/cam_1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sensor/resources/1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="27" selection-start="27" selection-end="27" vertical-scroll-proportion="-0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sensor/resources/203.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="77" selection-start="77" selection-end="77" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/camera/src/test/testCameraCMDHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="53" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sensor/src/sensor/SensorCMDHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="32" selection-start="844" selection-end="844" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/camera/config.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="44" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="6" column="44" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sensor/config.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="27" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="52" selection-start="564" selection-end="564" vertical-scroll-proportion="0.046904314">
-          <folding />
-        </state>
+        <state line="9" column="27" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPPacket.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="80" column="0" selection-start="1802" selection-end="1802" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraCMDHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="48" selection-start="1430" selection-end="1430" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sensor/src/sensor/SensorPreProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="25" selection-start="617" selection-end="617" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1110,23 +1053,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPClient.java">
+    <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="40" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0">
+        <state line="34" column="47" selection-start="997" selection-end="997" vertical-scroll-proportion="0.10865562">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/ConfigurationFile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="33" selection-start="1897" selection-end="1897" vertical-scroll-proportion="0.0">
+        <state line="51" column="32" selection-start="1410" selection-end="1410" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gateway/src/gateway/abstracthandler/PreProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="16" selection-start="168" selection-end="168" vertical-scroll-proportion="0.390625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sensor/src/sensor/SensorPreProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="20" selection-start="612" selection-end="612" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="27" selection-start="946" selection-end="946" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="16" selection-start="812" selection-end="812" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sensor/src/sensor/SensorCMDHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="46" selection-start="577" selection-end="577" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraCMDHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="43" selection-start="888" selection-end="888" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gateway/src/gateway/Gateway.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="189" column="36" selection-start="7482" selection-end="7482" vertical-scroll-proportion="0.36132812">
+        <state line="262" column="19" selection-start="10191" selection-end="10191" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#1541#1559#0" expanded="true" />
+            <element signature="e#7170#7288#0" expanded="true" />
+            <element signature="e#7277#7278#0" expanded="true" />
+            <element signature="e#7378#9534#0" expanded="true" />
+            <element signature="e#9519#9520#0" expanded="true" />
+            <element signature="e#12265#12403#0" expanded="true" />
+            <element signature="e#12388#12389#0" expanded="true" />
+            <element signature="e#12624#15113#0" expanded="true" />
+            <element signature="e#15094#15095#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_21/src.zip!/java/util/ServiceLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="429" column="23" selection-start="17037" selection-end="17037" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://F:/LIBs/wshare-2.0/wsdc.api/wsdc-api.jar!/wshare/dc/DC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="8" selection-start="1991" selection-end="1991" vertical-scroll-proportion="0.78268874">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sensor/idmap.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="39" selection-start="315" selection-end="315" vertical-scroll-proportion="-1.573741">
           <folding />
         </state>
       </provider>
@@ -1138,9 +1154,9 @@
         <settings>
           <artifact-editor>
             <show-content>
-              <type id="javaee-facet-resources" />
-              <type id="library" />
               <type id="jpa-descriptors" />
+              <type id="library" />
+              <type id="javaee-facet-resources" />
               <type id="artifact" />
             </show-content>
           </artifact-editor>
@@ -1149,6 +1165,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
