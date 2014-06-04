@@ -4,12 +4,12 @@ import gateway.Gateway;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import wshare.dc.DC;
-import wshare.dc.ResourceInfo;
 import wshare.dc.resource.DataItem;
 import wshare.dc.resource.Property;
 import wshare.dc.resource.Resource;
-import wshare.dc.session.ResourceInfoImpl;
+import wshare.dc.resource.ResourceInfo;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 
@@ -21,7 +21,7 @@ public class UDPDataHandler{
     private static Logger logger = LogManager.getLogger(UDPDataHandler.class.getName());
     private Properties idmap = Gateway.getIDMap();
 
-    public void onReceive(byte[] data) {
+    public void onReceive(byte[] data) throws IOException {
         UDPPacket packet = new UDPPacket();
         packet.unpackData(data);
 //        logger.info("raw data:\n");
@@ -35,8 +35,10 @@ public class UDPDataHandler{
             return;
         }
 
-        ResourceInfo ri = new ResourceInfoImpl(resid, null);
-        Resource res = DC.getResource(ri);
+        ResourceInfo ri = new ResourceInfo();
+        ri.setId(resid);
+        ri.setCheck("123456");
+        Resource res = DC.connect(ri);
 
         long datatype = packet.getType();
         Property p = null;

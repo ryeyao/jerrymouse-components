@@ -4,9 +4,10 @@ import camera.ConfigurationFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import wshare.common.ClientInfo;
 import wshare.dc.DC;
 import wshare.dc.resource.*;
+import wshare.dc.user.ClientInfo;
+import wshare.dc.user.ResourceLibrary;
 
 import java.io.IOException;
 import java.util.*;
@@ -25,8 +26,10 @@ public class CameraUserTest {
 		time = System.nanoTime();
         cf = new ConfigurationFile();
         Properties conf = cf.loadConfiguration();
-		DC.getConfiguration().setProperty("server.host", conf.getProperty("server.host"));
-		DC.getConfiguration().setProperty("server.port", conf.getProperty("server.port"));
+        System.setProperty(DC.SP_HOST, conf.getProperty("server.host"));
+        System.setProperty(DC.SP_PORT, conf.getProperty("server.port"));
+//		DC.getConfiguration().setProperty("server.host", conf.getProperty("server.host"));
+//		DC.getConfiguration().setProperty("server.port", conf.getProperty("server.port"));
         rid = conf.getProperty("client.cameraid");
 		lib = DC.newSession((ClientInfo) null);
 
@@ -58,7 +61,7 @@ public class CameraUserTest {
 		ResourceDefinition def = randDefinition();
 		System.out.println(def);
 
-		rid = lib.addResource(def, null);
+//		rid = lib.addResource(def, null);
 		System.out.println(rid);
 		Resource rsc = lib.getResource(rid);
 

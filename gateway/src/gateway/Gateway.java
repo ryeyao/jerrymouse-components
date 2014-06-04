@@ -2,24 +2,19 @@ package gateway;
 
 import cn.iie.gaia.LifecycleException;
 import cn.iie.gaia.entity.ComponentBase;
-import com.google.gson.JsonObject;
 import gateway.abstracthandler.CommandHandler;
 import gateway.abstracthandler.PreProcessor;
 import gateway.util.ConfigurationFile;
 import gateway.util.Json2ResourceDef;
-import gateway.util.ResourceDef2Json;
-import gateway.util.XML2ResourceDef;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 import wshare.dc.DC;
-import wshare.dc.ResourceInfo;
 import wshare.dc.resource.*;
-import wshare.dc.session.ResourceInfoImpl;
+import wshare.dc.util.DefinitionHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
@@ -47,7 +42,8 @@ public class Gateway extends ComponentBase {
     private ArrayList<Resource> resources = new ArrayList<Resource>();
     private static final Object idmapLock = new Object();
     private static final Object resourcesLock = new Object();
-    private boolean useAsync = true;
+    private static final Object registerLock = new Object();
+    private boolean useAsync = false;
 
     private Class<CommandHandler> commandHandlerClass;
     private Class<PreProcessor> preprocessorClass;
@@ -94,8 +90,10 @@ public class Gateway extends ComponentBase {
             useAsync = Boolean.valueOf(config.getProperty("use_async"));
         }
 
-        DC.getConfiguration().setProperty("server.host", config.getProperty("server.host"));
-        DC.getConfiguration().setProperty("server.port", config.getProperty("server.port"));
+        System.setProperty(DC.SP_HOST, config.getProperty("server.host"));
+        System.setProperty(DC.SP_PORT, config.getProperty("server.port"));
+//        DC.getConfiguration().setProperty("server.host", config.getProperty("server.host"));
+//        DC.getConfiguration().setProperty("server.port", config.getProperty("server.port"));
 
         // load class
         ClassLoader classLoader = this.getClass().getClassLoader();
@@ -137,204 +135,245 @@ public class Gateway extends ComponentBase {
         }
     }
 
-    private Resource registerResource(ResourceDefinition def) throws IOException {
-        ResourceLibrary lib = DC.newSession(null);
-        String rid = lib.addResource(def, null);
-        Resource res = lib.getResource(rid);
+//    private Resource registerResource(ResourceDefinition def) throws IOException {
+//        ResourceLibrary lib;
+//        lib = DC.newSession(null);
+//        String rid = lib.addResource(def, null);
+//        Resource res = lib.getResource(rid);
+//
+//        return res;
+//    }
+//
+//    private Properties registerAllResourecsFromJson(String jsonDir) throws IOException {
+//        File jsonDirFile = new File(jsonDir);
+//        Properties loc2rem = new Properties();
+//
+//        for(File jsonFile : jsonDirFile.listFiles()) {
+//            logger.info("Parsing {}", jsonFile.getCanonicalFile());
+//            BufferedReader fr = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile), "utf-8"));
+//
+//            ResourceDefinition def = Json2ResourceDef.parse(fr);
+//
+//            //FIXME(Rye): Fake location
+//            Random rand = new Random(System.currentTimeMillis());
+//            double yMax = 58, yMin = -38, xMax = 170, xMin = -2;
+//            double x = rand.nextDouble() * (xMax - xMin) + xMin;
+//            double y = rand.nextDouble() * (yMax - yMin) + yMin;
+//            if(!def.description.containsKey("geo")) {
+//                def.description.put("geo", x + "," + y);
+//                def.description.put("geo", "20,50");
+//            }
+//
+//
+//            Resource res = registerResource(def);
+//            resources.add(res);
+//
+//            String localid = def.description.get("localid");
+//            loc2rem.setProperty(localid, res.getId());
+//        }
+//
+//        return loc2rem;
+//    }
+//
+//    private Properties registerAllResourecsFromJsonAsync(String jsonDir) throws IOException {
+//
+//        File jsonDirFile = new File(jsonDir);
+//        final Properties loc2rem = new Properties();
+//
+//        ExecutorService exec = Executors.newCachedThreadPool();
+//        final CyclicBarrier barrier = new CyclicBarrier(jsonDirFile.list().length, new Runnable() {
+//            @Override
+//            public void run() {
+//                return;
+//            }
+//        });
+//
+//        for(final File jsonFile : jsonDirFile.listFiles()) {
+//            exec.execute(new Runnable() {
+//                @Override
+//                public void run() {
+//
+//                    try {
+//                        logger.info("Parsing {}", jsonFile.getCanonicalFile());
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    BufferedReader fr = null;
+//                    try {
+//                        fr = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile), "utf-8"));
+//                    } catch (UnsupportedEncodingException e) {
+//                        e.printStackTrace();
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    ResourceDefinition def = Json2ResourceDef.parse(fr);
+//
+//                    //FIXME(Rye): Fake location
+//                    Random rand = new Random(System.currentTimeMillis());
+//                    double yMax = 58, yMin = -38, xMax = 170, xMin = -2;
+//                    double x = rand.nextDouble() * (xMax - xMin) + xMin;
+//                    double y = rand.nextDouble() * (yMax - yMin) + yMin;
+//                    if(!def.description.containsKey("geo")) {
+//                        def.description.put("geo", x + "," + y);
+//                        def.description.put("geo", "20,50");
+//                    }
+//
+//
+//                    Resource res = null;
+//                    try {
+//                        res = registerResource(def);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    synchronized (resourcesLock) {
+//                        resources.add(res);
+//                        String localid = def.description.get("localid");
+//                        loc2rem.setProperty(localid, res.getId());
+//                    }
+//
+//
+//                    try {
+//                        barrier.await();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    } catch (BrokenBarrierException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//        }
+//        exec.shutdown();
+//
+//        return loc2rem;
+//    }
+//
+//    private Properties registerAllResources(String xmlDir) throws ParserConfigurationException, IOException, SAXException {
+//        // TODO: Register resource while idmap doesn't exist so that we can get a new resource id.
+//
+//        // Get resource definition from xml
+//        File xmlDirFile = new File(xmlDir);
+////        XML2ResourceDef xml2r = new XML2ResourceDef();
+//        Properties loc2rem = new Properties();
+////        Properties rem2loc = new Properties();
+//
+//        for (File xmlFile : xmlDirFile.listFiles()) {
+//            String xmlPath = xmlFile.getPath();
+//            ResourceDefinition def = XML2ResourceDef.parse(xmlPath);
+//
+//            //FIXME(Rye): Fake location
+//            Random rand = new Random(System.currentTimeMillis());
+//            double yMax = 58, yMin = -38, xMax = 170, xMin = -2;
+//            double x = rand.nextDouble() * (xMax - xMin) + xMin;
+//            double y = rand.nextDouble() * (yMax - yMin) + yMin;
+//            if(!def.description.containsKey("geo")) {
+//                def.description.put("geo", x + "," + y);
+//                def.description.put("geo", "20,50");
+//            }
+//
+//
+//            Resource res = registerResource(def);
+//            resources.add(res);
+//
+//            String localid = def.description.get("localid");
+//            loc2rem.setProperty(localid, res.getId());
+////            rem2loc.setProperty(res.getId(), localid);
+//
+//            // Generate json definition
+//            JsonObject jo = ResourceDef2Json.createJson(res);
+////            jo.add("handlers", new GsonBuilder().create().toJsonTree(hdlrs));
+//            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            jo.addProperty("lastModified", df.format(new Date()));
+//            ResourceDef2Json.writeJson(RES_DEF_DIR + File.separator + localid + ".json", jo);
+//        }
+//
+//        return loc2rem;
+//    }
 
-        return res;
-    }
-
-    private Properties registerAllResourecsFromJson(String jsonDir) throws IOException {
-        File jsonDirFile = new File(jsonDir);
-        Properties loc2rem = new Properties();
-
-        for(File jsonFile : jsonDirFile.listFiles()) {
-            logger.info("Parsing {}", jsonFile.getCanonicalFile());
-            BufferedReader fr = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile), "utf-8"));
-
-            ResourceDefinition def = Json2ResourceDef.parse(fr);
-
-            //FIXME(Rye): Fake location
-            Random rand = new Random(System.currentTimeMillis());
-            double yMax = 58, yMin = -38, xMax = 170, xMin = -2;
-            double x = rand.nextDouble() * (xMax - xMin) + xMin;
-            double y = rand.nextDouble() * (yMax - yMin) + yMin;
-            if(!def.description.containsKey("geo")) {
-                def.description.put("geo", x + "," + y);
-                def.description.put("geo", "20,50");
-            }
-
-
-            Resource res = registerResource(def);
-            resources.add(res);
-
-            String localid = def.description.get("localid");
-            loc2rem.setProperty(localid, res.getId());
+    private void bindCommandHandler(Resource res) {
+        CommandHandler commandHandler = null;
+        try {
+            commandHandler = commandHandlerClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
-
-        return loc2rem;
-    }
-
-    private Properties registerAllResourecsFromJsonAsync(String jsonDir) throws IOException {
-
-        File jsonDirFile = new File(jsonDir);
-        final Properties loc2rem = new Properties();
-
-        ExecutorService exec = Executors.newCachedThreadPool();
-        final CyclicBarrier barrier = new CyclicBarrier(jsonDirFile.list().length, new Runnable() {
-            @Override
-            public void run() {
-                return;
-            }
-        });
-
-        for(final File jsonFile : jsonDirFile.listFiles()) {
-            exec.execute(new Runnable() {
-                @Override
-                public void run() {
-
-                    try {
-                        logger.info("Parsing {}", jsonFile.getCanonicalFile());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    BufferedReader fr = null;
-                    try {
-                        fr = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile), "utf-8"));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-
-                    ResourceDefinition def = Json2ResourceDef.parse(fr);
-
-                    //FIXME(Rye): Fake location
-                    Random rand = new Random(System.currentTimeMillis());
-                    double yMax = 58, yMin = -38, xMax = 170, xMin = -2;
-                    double x = rand.nextDouble() * (xMax - xMin) + xMin;
-                    double y = rand.nextDouble() * (yMax - yMin) + yMin;
-                    if(!def.description.containsKey("geo")) {
-                        def.description.put("geo", x + "," + y);
-                        def.description.put("geo", "20,50");
-                    }
-
-
-                    Resource res = null;
-                    try {
-                        res = registerResource(def);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    synchronized (resourcesLock) {
-                        resources.add(res);
-                        String localid = def.description.get("localid");
-                        loc2rem.setProperty(localid, res.getId());
-                    }
-
-
-                    try {
-                        barrier.await();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (BrokenBarrierException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+        commandHandler.setRes(res);
+        commandHandler.init();
+        String localid = res.getDefinition().description.get("localid");
+        logger.info("[{}] Binding handlers for resource {}.", localid, res.getId());
+        for (String ctrlPropID : res.getDefinition().relationship.keySet()) {
+            logger.info("[{}] 1", localid);
+            Property p = res.getProperty(ctrlPropID);
+            logger.info("[{}] 2", localid);
+            String cmdh = p.registerReader(commandHandler, null);
+            logger.info("[{}] 3", localid);
         }
-        exec.shutdown();
-
-        return loc2rem;
+        logger.info("[{}] done", localid);
     }
-
-    private Properties registerAllResources(String xmlDir) throws ParserConfigurationException, IOException, SAXException {
-        // TODO: Register resource while idmap doesn't exist so that we can get a new resource id.
-
-        // Get resource definition from xml
-        File xmlDirFile = new File(xmlDir);
-//        XML2ResourceDef xml2r = new XML2ResourceDef();
-        Properties loc2rem = new Properties();
-//        Properties rem2loc = new Properties();
-
-        for (File xmlFile : xmlDirFile.listFiles()) {
-            String xmlPath = xmlFile.getPath();
-            ResourceDefinition def = XML2ResourceDef.parse(xmlPath);
-
-            //FIXME(Rye): Fake location
-            Random rand = new Random(System.currentTimeMillis());
-            double yMax = 58, yMin = -38, xMax = 170, xMin = -2;
-            double x = rand.nextDouble() * (xMax - xMin) + xMin;
-            double y = rand.nextDouble() * (yMax - yMin) + yMin;
-            if(!def.description.containsKey("geo")) {
-                def.description.put("geo", x + "," + y);
-                def.description.put("geo", "20,50");
-            }
-
-
-            Resource res = registerResource(def);
-            resources.add(res);
-
-            String localid = def.description.get("localid");
-            loc2rem.setProperty(localid, res.getId());
-//            rem2loc.setProperty(res.getId(), localid);
-
-            // Generate json definition
-            JsonObject jo = ResourceDef2Json.createJson(res);
-//            jo.add("handlers", new GsonBuilder().create().toJsonTree(hdlrs));
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            jo.addProperty("lastModified", df.format(new Date()));
-            ResourceDef2Json.writeJson(RES_DEF_DIR + File.separator + localid + ".json", jo);
-        }
-
-        return loc2rem;
-    }
-
 
     private boolean initializeResourceAsync() throws IOException, ParserConfigurationException, SAXException, IllegalAccessException, InstantiationException {
 
+        final Object wait4jobs = new Object();
         logger.info("Initializing resources...");
         idmap = getIDMap();
         if (idmap == null || idmap.size() == 0) {
-            logger.info("IDMap not found, register all resources and creating a new map file...");
+            logger.error("IDMap not found, register all resources and creating a new map file...");
 //            idmap = registerAllResources(XML_DIR);
-            idmap = registerAllResourecsFromJsonAsync(RES_DEF_DIR);
+//            idmap = registerAllResourecsFromJsonAsync(RES_DEF_DIR);
 
             // update idmap
-            ConfigurationFile.updateFile(idmap, IDMAP_FILE);
+//            ConfigurationFile.updateFile(idmap, IDMAP_FILE);
         } else {
-            ExecutorService exec = Executors.newCachedThreadPool();
-            System.out.println("idmap size: " + idmap.size());
+            final ExecutorService exec = Executors.newCachedThreadPool();
+//            System.out.println("idmap size: " + idmap.size());
             final CyclicBarrier barrier = new CyclicBarrier(idmap.size(), new Runnable() {
                 @Override
                 public void run() {
+                    logger.info("Initialization done.");
+                    synchronized (wait4jobs) {
+                        wait4jobs.notify();
+                    }
+//                    // Bind command handlers
+//                    logger.info("Binding command handlers...");
+//                    for(Resource res : resources) {
+//                        bindCommandHandler(res);
+//                    }
                     return;
                 }
             });
 
             // Retrieve resources and update resources' definition
-            logger.info("Checking definition modification...");
+            logger.info("Checking definition modification for each resource...");
             for(final Object localid : idmap.keySet()) {
                 exec.execute(new Runnable() {
                     @Override
                     public void run() {
 
-                        String resid = (String)idmap.get(localid);
-                        ResourceInfo ri = new ResourceInfoImpl(resid, null);
-                        Resource res = DC.getResource(ri);
+                        String resid = (String) idmap.get(localid);
+                        ResourceInfo ri = new ResourceInfo();
+                        ri.setId(resid);
+                        // FIXME check should be read from local definition file.
+                        ri.setCheck("123456");
+                        Resource res = null;
+                        try {
+                            res = DC.connect(ri);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
-                        if(res == null) {
-                            logger.error("ResourceID[{}] unavailable.", resid);
+                        if (res == null) {
+                            logger.error("[{}] ResourceID[{}] unavailable.", localid, resid);
                             return;
 //                            return false;
                         }
 
                         ResourceDefinition oldDef = res.getDefinition();
 
-                        File jsonDef = new File(RES_DEF_DIR, localid+".json");
-                        if(jsonDef.lastModified() > oldDef.lastModified.getTime()) {
-                            logger.info("Update resource[{}]", resid);
+                        File jsonDef = new File(RES_DEF_DIR, localid + ".json");
+                        if (jsonDef.lastModified() > oldDef.lastModified.getTime()) {
+                            logger.info("[{}] Update resource[{}]", localid, resid);
 //                    ResourceDefinition newDef = XML2ResourceDef.parse(xmlDef.getPath());
 
                             BufferedReader fr = null;
@@ -355,6 +394,7 @@ public class Gateway extends ComponentBase {
 //                    ResourceDefinition newDef = XML2ResourceDef.parse(xmlDef.getPath());
 //                    res.setDefinition(DefinitionHelper.delta(oldDef, newDef));
 //                }
+                        bindCommandHandler(res);
                         synchronized (resourcesLock) {
                             resources.add(res);
                         }
@@ -371,24 +411,13 @@ public class Gateway extends ComponentBase {
             exec.shutdown();
         }
 
-        // Bind command handlers
-        logger.info("Binding command handlers...");
-        for(Resource res : resources) {
-            CommandHandler commandHandler = commandHandlerClass.newInstance();
-            commandHandler.setRes(res);
-            commandHandler.init();
-            logger.info("resourceID {}.", res.getId());
-            for (String ctrlPropID : res.getDefinition().relationship.keySet()) {
-                logger.info("ctrlPropID {}.", ctrlPropID);
-                Property p = res.getProperty(ctrlPropID);
-                logger.info("3.");
-                String cmdh = p.registerReader(commandHandler, null);
-                logger.info("4.");
+        synchronized (wait4jobs) {
+            try {
+                wait4jobs.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-        logger.info("Binding done.");
-
-
         return true;
     }
 
@@ -397,19 +426,35 @@ public class Gateway extends ComponentBase {
         logger.info("Initializing resources...");
         idmap = getIDMap();
         if (idmap == null) {
-            logger.info("IDMap not found, register all resources and creating a new map file...");
+            logger.error("IDMap not found, register all resources and creating a new map file...");
 //            idmap = registerAllResources(XML_DIR);
-            idmap = registerAllResourecsFromJson(RES_DEF_DIR);
+//            idmap = registerAllResourecsFromJson(RES_DEF_DIR);
 
             // update idmap
-            ConfigurationFile.updateFile(idmap, IDMAP_FILE);
+//            ConfigurationFile.updateFile(idmap, IDMAP_FILE);
         } else {
             // Retrieve resources and update resources' definition
             logger.info("Checking definition modification...");
             for(Object localid : idmap.keySet()) {
                 String resid = (String)idmap.get(localid);
-                ResourceInfo ri = new ResourceInfoImpl(resid, null);
-                Resource res = DC.getResource(ri);
+
+                // read local resource definition
+                String defFileName = localid+".json";
+                File jsonDef = new File(RES_DEF_DIR, defFileName);
+
+                if(jsonDef == null) {
+                    logger.error("Definition file {} not found.", RES_DEF_DIR + '/' + defFileName);
+                    return false;
+                }
+
+                BufferedReader fr = new BufferedReader(new InputStreamReader(new FileInputStream(jsonDef), "utf-8"));
+                ResourceDefinition localDef = Json2ResourceDef.parse(fr);
+
+                ResourceInfo ri = new ResourceInfo();
+                ri.setId(resid);
+                // FIXME check should be read from local definition json file.
+                ri.setCheck("123456");
+                Resource res = DC.connect(ri);
 
                 if(res == null) {
                     logger.error("ResourceID[{}] unavailable.", resid);
@@ -418,14 +463,12 @@ public class Gateway extends ComponentBase {
 
                 ResourceDefinition oldDef = res.getDefinition();
 
-                File jsonDef = new File(RES_DEF_DIR, localid+".json");
                 if(jsonDef.lastModified() > oldDef.lastModified.getTime()) {
+//                if(oldDef.lastModified == null || jsonDef.lastModified() > oldDef.lastModified.getTime()) {
                     logger.info("Update resource[{}]", resid);
 //                    ResourceDefinition newDef = XML2ResourceDef.parse(xmlDef.getPath());
 
-                    BufferedReader fr = new BufferedReader(new InputStreamReader(new FileInputStream(jsonDef), "utf-8"));
-                    ResourceDefinition newDef = Json2ResourceDef.parse(fr);
-                    res.setDefinition(DefinitionHelper.delta(oldDef, newDef));
+                    res.setDefinition(DefinitionHelper.delta(oldDef, localDef));
                 }
 
 //                File xmlDef = new File(XML_DIR, localid + ".xml");
@@ -444,16 +487,12 @@ public class Gateway extends ComponentBase {
             CommandHandler commandHandler = commandHandlerClass.newInstance();
             commandHandler.setRes(res);
             commandHandler.init();
-            logger.info("resourceID {}.", res.getId());
+            logger.info("Binding handlers for resource {}.", res.getId());
             for (String ctrlPropID : res.getDefinition().relationship.keySet()) {
-                logger.info("ctrlPropID {}.", ctrlPropID);
                 Property p = res.getProperty(ctrlPropID);
-                logger.info("3.");
                 String cmdh = p.registerReader(commandHandler, null);
-                logger.info("4.");
             }
         }
-        logger.info("Binding done.");
 
 
         return true;

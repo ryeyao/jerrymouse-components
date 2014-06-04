@@ -7,7 +7,9 @@
 		<LocalID>225</LocalID>
 		<gateway>192.168.119.254</gateway>
 		<description>展柜</description>
-
+        
+       
+        
 		
 		<devicetype name="展柜">
 			<type>展柜</type>

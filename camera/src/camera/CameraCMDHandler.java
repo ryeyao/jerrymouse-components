@@ -67,7 +67,7 @@ public class CameraCMDHandler extends CommandHandler {
         String cmdStr = propertyId.getLocalId();
         cmdStr = cmdStr.substring(cmdStr.indexOf("/") + 1);
         byte[] cmd = cmdHex.get(cmdStr);
-        logger.info("Command to [{}] [{}]: [{}]", localid, address, cmdStr);
+        logger.info("Send command to [{}] [{}]: [{}]", localid, address, cmdStr);
         if(cmdStr == "twoDirectionPos") {
             int x = ByteBuffer.wrap(data[0].data).getInt();
             int y = ByteBuffer.wrap(data[1].data).getInt();
@@ -97,15 +97,15 @@ public class CameraCMDHandler extends CommandHandler {
                 socket = new Socket();
                 socket.connect(address, 1000);
             } catch (IOException e) {
-                logger.error("Client [{}] [{}] unreachable.", localid, address);
-                e.printStackTrace();
+                logger.error("Camera [{}] [{}] unreachable.\nReason: {}", localid, address, e.getLocalizedMessage());
+//                e.printStackTrace();
                 return;
             }
         }
         try {
             socket.getOutputStream().write(cmd);
         } catch (IOException e) {
-            logger.error("write to [{}] failed .", address);
+            logger.error("Write to camera [{}] failed . \nReason: {}", address, e.getLocalizedMessage());
         }
     }
 

@@ -47,7 +47,7 @@ public class ConfigurationFile {
     }
 
     public Properties loadConfiguration(String fname) {
-        logger.info("Loading configuration from file {}", fname);
+        logger.info("Loading configuration file {}", fname);
         Properties prop = new Properties();
         InputStream input = null;
 

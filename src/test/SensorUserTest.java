@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import wshare.dc.DC;
 import wshare.dc.resource.*;
+import wshare.dc.user.ResourceLibrary;
 
 import java.io.IOException;
 import java.util.*;
@@ -38,8 +39,10 @@ public class SensorUserTest {
         Properties conf = cf.loadConfiguration();
         idmap = cf.loadConfiguration("idmap.ini");
 
-        DC.getConfiguration().setProperty("server.host", conf.getProperty("server.host"));
-        DC.getConfiguration().setProperty("server.port", conf.getProperty("server.port"));
+        System.setProperty(DC.SP_HOST, conf.getProperty("server.host"));
+        System.setProperty(DC.SP_PORT, conf.getProperty("server.port"));
+//        DC.getConfiguration().setProperty("server.host", conf.getProperty("server.host"));
+//        DC.getConfiguration().setProperty("server.port", conf.getProperty("server.port"));
         lib = DC.newSession(null);
 
         System.out.println("Retrieving resources and controllable properties...");

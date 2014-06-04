@@ -24,6 +24,7 @@ public class SensorCMDHandler extends CommandHandler {
     private static final Logger logger = LogManager.getLogger(SensorCMDHandler.class.getName());
 
     public void init() {
+        logger.info("Initialize command handler.");
         this.localid = this.getRes().getDefinition().description.get("localid");
         client = new UDPClient();
         try {

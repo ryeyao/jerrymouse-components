@@ -25,7 +25,7 @@ public class UDPClient {
     private byte[] recvBuffer;
 
     public void init() throws SocketException {
-        logger.info("Initializing cn.iie.jerrymouse.sensor.udp Client...");
+        logger.info("Initializing udp Client...");
 
         ConfigurationFile cf = new ConfigurationFile();
         Properties config = cf.loadConfiguration();
@@ -36,7 +36,6 @@ public class UDPClient {
 
         sendBuffer = new byte[1024];
         recvBuffer = new byte[1024];
-        logger.info("Done.");
     }
 
     public void send(byte[] data) throws IOException {
@@ -46,7 +45,7 @@ public class UDPClient {
     }
 
     public void shutDown() {
-        logger.info("Shutting down cn.iie.jerrymouse.sensor.udp Client");
+        logger.info("Shutting down udp Client");
 
         clientSocket.close();
         sendBuffer = null;

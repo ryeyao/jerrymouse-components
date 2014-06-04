@@ -29,7 +29,7 @@ public class UDPServer extends StoppableLoopThread {
     }
 
     public void init() throws SocketException {
-        logger.info("Initializing cn.iie.jerrymouse.sensor.udp Server...");
+        logger.info("Initializing UDP Server...");
         ConfigurationFile cf = new ConfigurationFile();
         Properties config = cf.loadConfiguration();
         host = config.getProperty("udp.host");
@@ -42,7 +42,7 @@ public class UDPServer extends StoppableLoopThread {
     @Override
     public void loopTask() {
 
-        logger.info("cn.iie.jerrymouse.sensor.udp Server listening on port " + port);
+        logger.info("UDP Server listening on port " + port);
         DatagramPacket recvPacket = new DatagramPacket(recvBuffer, recvBuffer.length);
         try {
             serverSocket.receive(recvPacket);

@@ -65,12 +65,18 @@ public class UDPPacket {
     }
 
     public void unpackData(byte[] raw) {
+//        System.out.println(raw[16] + ":" + raw[17] + ":" + raw[18] + ":" + raw[19]);
         ByteBuffer bb = ByteBuffer.wrap(raw).order(ByteOrder.LITTLE_ENDIAN);
         this.type = bb.getLong();
         this.nodeid = bb.getLong();
-        byte[] remaining = new byte[bb.remaining()];
-        bb.get(remaining);
-        this.value = new String(remaining).trim();
+        if(this.type == 11) {
+            this.value = String.valueOf((char)bb.get());
+        } else {
+            byte[] remaining;
+            remaining = new byte[bb.remaining()];
+            bb.get(remaining);
+            this.value = new String(remaining).trim();
+        }
     }
 
     public byte[] packCmd() throws UnsupportedEncodingException {
