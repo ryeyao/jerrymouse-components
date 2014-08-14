@@ -5,6 +5,7 @@ import com.google.gson.stream.JsonReader;
 import wshare.dc.resource.ResourceDefinition;
 
 import java.io.*;
+import java.lang.reflect.Field;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,8 +28,22 @@ public class Json2ResourceDef {
     public static ResourceDefinition parse(Reader reader) {
         JsonParser jp = new JsonParser();
 //        JsonElement je = jp.parse(reader);
+//        FieldNamingStrategy fns = new FieldNamingStrategy() {
+//            @Override
+//            public String translateName(Field f) {
+//                System.out.println("Field: " + f.getName());
+//                if (f.getName() == "RES_2_USER") {
+//                    return "RESOURCE_2_USER";
+//                } else if (f.getName() == "USER_2_RES") {
+//                    return "USER_2_RESOURCE";
+//                }
+//                return f.getName();
+//            }
+//        };
+//        Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").setFieldNamingStrategy(fns).create();
         Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         ResourceDefinition def = g.fromJson(reader, ResourceDefinition.class);
+//        System.out.println(def.properties);
         return def;
     }
 

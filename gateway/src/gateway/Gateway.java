@@ -30,7 +30,7 @@ public class Gateway extends ComponentBase {
 //        System.setProperty("log4j.configurationFile", "log4j2.xml");
         Thread.currentThread().setContextClassLoader(Gateway.class.getClassLoader());
     }
-    static final Logger logger = LogManager.getLogger(Gateway.class);
+    static final Logger logger = LogManager.getLogger("[Gateway] " + Gateway.class.getName());
 
     public static Properties idmap;
     public static String IDMAP_FILE = "idmap.ini";
@@ -43,7 +43,13 @@ public class Gateway extends ComponentBase {
     private static final Object idmapLock = new Object();
     private static final Object resourcesLock = new Object();
     private static final Object registerLock = new Object();
-    private boolean useAsync = false;
+
+    // Configurable vars
+    private class ConfigurableVars {
+        public boolean useAsync = false;
+        public boolean forceUpdateDef = false;
+    }
+    private ConfigurableVars confVars = new ConfigurableVars();
 
     private Class<CommandHandler> commandHandlerClass;
     private Class<PreProcessor> preprocessorClass;
@@ -56,10 +62,6 @@ public class Gateway extends ComponentBase {
         ConfigurationFile.fileName = getComponentBase() + File.separatorChar + ConfigurationFile.fileName;
 
         ConfigurationFile cf = new ConfigurationFile();
-//        String configPath = getComponentBase() + File.separatorChar + ConfigurationFile.fileName;
-//        System.out.println(configPath);
-
-//        System.out.println("***\n" + IDMAP_FILE + "\n" + XML_DIR + "\n" + RES_DEF_DIR + "\n***");
 
         Properties config = cf.loadConfiguration();
 
@@ -79,15 +81,19 @@ public class Gateway extends ComponentBase {
         logger.info("Initialize gateway");
         Properties config = loadConfiguration();
 
-        if(!config.containsKey("server.host") || !config.containsKey("server.port")
+        if (!config.containsKey("server.host") || !config.containsKey("server.port")
                 || !config.containsKey("client.commandhandler")
                 || !config.containsKey("client.preprocessor")) {
             logger.error("property [server.host], [server.port], [client.commandhandler] and [client.preprocessor] must be specified.");
             return;
         }
 
-        if(config.containsKey("use_async")) {
-            useAsync = Boolean.valueOf(config.getProperty("use_async"));
+        if (config.containsKey("use_async")) {
+            confVars.useAsync = Boolean.valueOf(config.getProperty("use_async"));
+        }
+
+        if (config.containsKey("force_update_def")) {
+            confVars.forceUpdateDef = Boolean.valueOf(config.getProperty("force_update_def"));
         }
 
         System.setProperty(DC.SP_HOST, config.getProperty("server.host"));
@@ -114,7 +120,7 @@ public class Gateway extends ComponentBase {
         }
 
         try {
-            while (!(useAsync?initializeResourceAsync():initializeResource())) {
+            while (!(confVars.useAsync?initializeResourceAsync():initializeResource())) {
                 logger.error("Initialization failed.");
 //                idmap = registerAllResources(XML_DIR);
 //
@@ -304,13 +310,13 @@ public class Gateway extends ComponentBase {
         String localid = res.getDefinition().description.get("localid");
         logger.info("[{}] Binding handlers for resource {}.", localid, res.getId());
         for (String ctrlPropID : res.getDefinition().relationship.keySet()) {
-            logger.info("[{}] 1", localid);
+//            logger.info("[{}-{}] 1", localid, ctrlPropID);
             Property p = res.getProperty(ctrlPropID);
-            logger.info("[{}] 2", localid);
+//            logger.info("[{}] 2", localid);
             String cmdh = p.registerReader(commandHandler, null);
-            logger.info("[{}] 3", localid);
+//            logger.info("[{}] 3", localid);
         }
-        logger.info("[{}] done", localid);
+//        logger.info("[{}] done", localid);
     }
 
     private boolean initializeResourceAsync() throws IOException, ParserConfigurationException, SAXException, IllegalAccessException, InstantiationException {
@@ -372,8 +378,7 @@ public class Gateway extends ComponentBase {
                         ResourceDefinition oldDef = res.getDefinition();
 
                         File jsonDef = new File(RES_DEF_DIR, localid + ".json");
-                        if (jsonDef.lastModified() > oldDef.lastModified.getTime()) {
-                            logger.info("[{}] Update resource[{}]", localid, resid);
+                        if (confVars.forceUpdateDef || jsonDef.lastModified() > oldDef.lastModified.getTime()) {
 //                    ResourceDefinition newDef = XML2ResourceDef.parse(xmlDef.getPath());
 
                             BufferedReader fr = null;
@@ -384,8 +389,14 @@ public class Gateway extends ComponentBase {
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
-                            ResourceDefinition newDef = Json2ResourceDef.parse(fr);
-                            res.setDefinition(DefinitionHelper.delta(oldDef, newDef));
+                            ResourceDefinition localDef = Json2ResourceDef.parse(fr);
+                            if (confVars.forceUpdateDef) {
+                                logger.info("[{}] Force update resource[{}]", localid, resid);
+                                res.setDefinition(localDef);
+                            } else {
+                                logger.info("[{}] Update resource[{}]", localid, resid);
+                                res.setDefinition(DefinitionHelper.delta(oldDef, localDef));
+                            }
                         }
 
 //                File xmlDef = new File(XML_DIR, localid + ".xml");
@@ -463,12 +474,17 @@ public class Gateway extends ComponentBase {
 
                 ResourceDefinition oldDef = res.getDefinition();
 
-                if(jsonDef.lastModified() > oldDef.lastModified.getTime()) {
+                if(confVars.forceUpdateDef || jsonDef.lastModified() > oldDef.lastModified.getTime()) {
 //                if(oldDef.lastModified == null || jsonDef.lastModified() > oldDef.lastModified.getTime()) {
-                    logger.info("Update resource[{}]", resid);
 //                    ResourceDefinition newDef = XML2ResourceDef.parse(xmlDef.getPath());
 
-                    res.setDefinition(DefinitionHelper.delta(oldDef, localDef));
+                    if (confVars.forceUpdateDef) {
+                        logger.info("[{}] Force update resource[{}]", localid, resid);
+                        res.setDefinition(localDef);
+                    } else {
+                        logger.info("[{}] Update resource[{}]", localid, resid);
+                        res.setDefinition(DefinitionHelper.delta(oldDef, localDef));
+                    }
                 }
 
 //                File xmlDef = new File(XML_DIR, localid + ".xml");
@@ -484,16 +500,8 @@ public class Gateway extends ComponentBase {
         // Bind command handlers
         logger.info("Binding command handlers...");
         for(Resource res : resources) {
-            CommandHandler commandHandler = commandHandlerClass.newInstance();
-            commandHandler.setRes(res);
-            commandHandler.init();
-            logger.info("Binding handlers for resource {}.", res.getId());
-            for (String ctrlPropID : res.getDefinition().relationship.keySet()) {
-                Property p = res.getProperty(ctrlPropID);
-                String cmdh = p.registerReader(commandHandler, null);
-            }
+            bindCommandHandler(res);
         }
-
 
         return true;
     }

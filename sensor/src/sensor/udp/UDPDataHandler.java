@@ -26,7 +26,7 @@ public class UDPDataHandler{
         packet.unpackData(data);
 //        logger.info("raw data:\n");
 //        logger.info(data);
-        logger.info("receive data:\n" + packet);
+        logger.info("\nIncoming data: " + packet);
 
         String resid = idmap.getProperty(String.valueOf(packet.getNodeid()));
 
@@ -59,7 +59,7 @@ public class UDPDataHandler{
             p = res.getProperty("展灯状态");
         }
         else {
-            logger.error("Unknown data type");
+            logger.warn("Unknown data type");
             return;
         }
         DataItem dataItem = new DataItem(new Date(),  packet.getValue().getBytes());

@@ -99,7 +99,11 @@ public class UDPPacket {
     @Override
     public String toString() {
 
-        return String.format("nodid:[%d] type:[%d] value[%s] cmd[%s]", nodeid, type, value.trim(), cmd);
+        if (cmd == null) {
+            return String.format("nodid:[%d] type:[%d] value[%s]", nodeid, type, value.trim(), cmd);
+        } else {
+            return String.format("nodid:[%d] type:[%d] value[%s] cmd[%s]", nodeid, type, value.trim(), cmd);
+        }
     }
 
 }

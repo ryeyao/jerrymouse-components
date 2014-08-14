@@ -44,7 +44,7 @@ public class SensorCMDHandler extends CommandHandler {
     public void handle(PID propertyId, DataItem... data) {
 
         try {
-            logger.info("Received command: \n" + new String(propertyId.getLocalId().getBytes("utf-8"), "utf-8"));
+            logger.info("\n Incoming command: " + new String(propertyId.getLocalId().getBytes("utf-8"), "utf-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

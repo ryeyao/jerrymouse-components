@@ -35,6 +35,7 @@ public class UDPServer extends StoppableLoopThread {
         host = config.getProperty("udp.host");
         port = Integer.valueOf(config.getProperty("udp.port"));
         serverSocket = new DatagramSocket(port);
+        logger.info("UDP Server listening on port " + port);
         recvBuffer = new byte[1024];
 //        sendBuffer = new byte[1024];
     }
@@ -42,7 +43,6 @@ public class UDPServer extends StoppableLoopThread {
     @Override
     public void loopTask() {
 
-        logger.info("UDP Server listening on port " + port);
         DatagramPacket recvPacket = new DatagramPacket(recvBuffer, recvBuffer.length);
         try {
             serverSocket.receive(recvPacket);
