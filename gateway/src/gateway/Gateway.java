@@ -33,7 +33,7 @@ public class Gateway extends ComponentBase {
 //        System.setProperty("log4j.configurationFile", "log4j2.xml");
         Thread.currentThread().setContextClassLoader(Gateway.class.getClassLoader());
     }
-    static final Logger logger = LogManager.getLogger("[Gateway] " + Gateway.class.getName());
+    static final Logger logger = LogManager.getLogger("[Framework] " + Gateway.class.getName());
 
     public static Properties idmap;
     public static String IDMAP_FILE = "idmap.ini";
@@ -120,8 +120,9 @@ public class Gateway extends ComponentBase {
 
         try {
             while (!(confVars.useAsync? initializeResourcesAsync(): initializeResources())) {
-                logger.error("Initialization failed.");
+                logger.error("Initialization failed. Trying again...");
             }
+            logger.info("Initialization done.");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
@@ -169,8 +170,10 @@ public class Gateway extends ComponentBase {
             fr = new BufferedReader(new InputStreamReader(new FileInputStream(jsonDef), "utf-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return null;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return null;
         }
         JsonParser jp = new JsonParser();
         JsonElement je = jp.parse(fr);
@@ -186,6 +189,7 @@ public class Gateway extends ComponentBase {
             res = DC.connect(ri);
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
 
         if (res == null) {
@@ -216,7 +220,8 @@ public class Gateway extends ComponentBase {
         logger.info("Initializing resources...");
         idmap = getIDMap();
         if (idmap == null || idmap.size() == 0) {
-            logger.error("IDMap not found, register all resources and creating a new map file...");
+            logger.error("File idmap.ini not found or is empty.");
+            return false;
         } else {
             final ExecutorService exec = Executors.newCachedThreadPool();
             final CyclicBarrier barrier = new CyclicBarrier(idmap.size(), new Runnable() {
@@ -240,6 +245,10 @@ public class Gateway extends ComponentBase {
                         String resid = (String) idmap.get(localid);
 
                         Resource res = initializeResource(resid, (String) localid);
+                        if(res == null) {
+                            logger.error("Skip resource [{}] : [{}]", (String)localid, resid);
+                            return;
+                        }
                         bindCommandHandler(res);
                         synchronized (resourcesLock) {
                             resources.add(res);
@@ -271,8 +280,9 @@ public class Gateway extends ComponentBase {
 
         logger.info("Initializing resources...");
         idmap = getIDMap();
-        if (idmap == null) {
-            logger.error("IDMap not found, register all resources and creating a new map file...");
+        if (idmap == null || idmap.size() == 0) {
+            logger.error("File idmap.ini not found or is empty.");
+            return false;
         } else {
             // Retrieve resources and update resources' definition
             logger.info("Checking definition modification...");
@@ -280,6 +290,10 @@ public class Gateway extends ComponentBase {
                 String resid = (String)idmap.get(localid);
 
                 Resource res = initializeResource(resid, (String)localid);
+                if(res == null) {
+                    logger.error("Skip resource [{}] : [{}]", (String)localid, resid);
+                    continue;
+                }
 
                 bindCommandHandler(res);
                 resources.add(res);
