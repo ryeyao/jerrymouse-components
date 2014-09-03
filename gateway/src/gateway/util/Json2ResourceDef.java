@@ -53,9 +53,22 @@ public class Json2ResourceDef {
         return g.fromJson(jreader, ResourceDefinition.class);
     }
 
+    public static ResourceDefinition parse(JsonElement jelement) {
+        Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        ResourceDefinition def = g.fromJson(jelement, ResourceDefinition.class);
+        return def;
+    }
+
+
     public static void main(String[] args) throws IOException {
-        File dir = new File("F:\\repositories\\wshare-2.0-gateway-1.0\\out\\artifacts\\Jerrymouse\\components\\gateway-camera\\resources\\Component.cam_1.json");
+        File dir = new File("F:\\repositories\\wshare-2.0-gateway-1.0\\out\\artifacts\\Jerrymouse\\components\\gateway-camera\\resources\\cam_1.json");
         BufferedReader br = new BufferedReader(new FileReader(dir));
+        JsonParser jp = new JsonParser();
+        JsonElement je = jp.parse(br);
+        JsonObject jo = je.getAsJsonObject();
+        String check = jo.get("check").getAsString();
+        System.out.println("check: " + check);
+
 
         String line = br.readLine();
         String res = "";

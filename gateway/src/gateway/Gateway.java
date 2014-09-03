@@ -2,6 +2,9 @@ package gateway;
 
 import cn.iie.gaia.LifecycleException;
 import cn.iie.gaia.entity.ComponentBase;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import gateway.abstracthandler.CommandHandler;
 import gateway.abstracthandler.PreProcessor;
 import gateway.util.ConfigurationFile;
@@ -120,7 +123,7 @@ public class Gateway extends ComponentBase {
         }
 
         try {
-            while (!(confVars.useAsync?initializeResourceAsync():initializeResource())) {
+            while (!(confVars.useAsync? initializeResourcesAsync(): initializeResources())) {
                 logger.error("Initialization failed.");
 //                idmap = registerAllResources(XML_DIR);
 //
@@ -319,21 +322,71 @@ public class Gateway extends ComponentBase {
 //        logger.info("[{}] done", localid);
     }
 
-    private boolean initializeResourceAsync() throws IOException, ParserConfigurationException, SAXException, IllegalAccessException, InstantiationException {
+    private Resource initializeResource(String resid, String localid) {
+        ResourceInfo ri = new ResourceInfo();
+
+        String defFileName = localid + ".json";
+        File jsonDef = new File(RES_DEF_DIR, defFileName);
+
+        if(jsonDef == null) {
+            logger.error("Definition file {} not found", RES_DEF_DIR + '/' + defFileName);
+            return null;
+        }
+        BufferedReader fr = null;
+        try {
+            fr = new BufferedReader(new InputStreamReader(new FileInputStream(jsonDef), "utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        JsonParser jp = new JsonParser();
+        JsonElement je = jp.parse(fr);
+        JsonObject jo = je.getAsJsonObject();
+        String check = jo.get("check").getAsString();
+
+        // FIXME Check regex pattern
+        ri.setCheck(check);
+        ri.setId(resid);
+
+        Resource res = null;
+        try {
+            res = DC.connect(ri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (res == null) {
+            logger.error("[{}] ResourceID[{}] unavailable.", localid, resid);
+            return null;
+        }
+
+        ResourceDefinition oldDef = res.getDefinition();
+
+        if (confVars.forceUpdateDef || jsonDef.lastModified() > oldDef.lastModified.getTime()) {
+            ResourceDefinition localDef = Json2ResourceDef.parse(je);
+
+            if (confVars.forceUpdateDef) {
+                logger.info("[{}] Force update resource[{}]", localid, resid);
+                res.setDefinition(localDef);
+            } else {
+                logger.info("[{}] Update resource[{}]", localid, resid);
+                res.setDefinition(DefinitionHelper.delta(oldDef, localDef));
+            }
+        }
+
+        return res;
+    }
+
+    private boolean initializeResourcesAsync() throws IOException, ParserConfigurationException, SAXException, IllegalAccessException, InstantiationException {
 
         final Object wait4jobs = new Object();
         logger.info("Initializing resources...");
         idmap = getIDMap();
         if (idmap == null || idmap.size() == 0) {
             logger.error("IDMap not found, register all resources and creating a new map file...");
-//            idmap = registerAllResources(XML_DIR);
-//            idmap = registerAllResourecsFromJsonAsync(RES_DEF_DIR);
-
-            // update idmap
-//            ConfigurationFile.updateFile(idmap, IDMAP_FILE);
         } else {
             final ExecutorService exec = Executors.newCachedThreadPool();
-//            System.out.println("idmap size: " + idmap.size());
             final CyclicBarrier barrier = new CyclicBarrier(idmap.size(), new Runnable() {
                 @Override
                 public void run() {
@@ -341,11 +394,6 @@ public class Gateway extends ComponentBase {
                     synchronized (wait4jobs) {
                         wait4jobs.notify();
                     }
-//                    // Bind command handlers
-//                    logger.info("Binding command handlers...");
-//                    for(Resource res : resources) {
-//                        bindCommandHandler(res);
-//                    }
                     return;
                 }
             });
@@ -359,12 +407,35 @@ public class Gateway extends ComponentBase {
 
                         String resid = (String) idmap.get(localid);
                         ResourceInfo ri = new ResourceInfo();
+
+                        String defFileName = localid + ".json";
+                        File jsonDef = new File(RES_DEF_DIR, defFileName);
+
+                        if(jsonDef == null) {
+                            logger.error("Definition file {} not found", RES_DEF_DIR + '/' + defFileName);
+                            return;
+                        }
+                        BufferedReader fr = null;
+                        try {
+                            fr = new BufferedReader(new InputStreamReader(new FileInputStream(jsonDef), "utf-8"));
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        JsonParser jp = new JsonParser();
+                        JsonElement je = jp.parse(fr);
+                        JsonObject jo = je.getAsJsonObject();
+                        String check = jo.get("check").getAsString();
+
+                        // FIXME Check regex pattern
+                        ri.setCheck(check);
                         ri.setId(resid);
-                        // FIXME check should be read from local definition file.
-                        ri.setCheck("123456");
+
                         Resource res = null;
                         try {
                             res = DC.connect(ri);
+//                            System.out.println(res.getDefinition().toString());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -372,24 +443,13 @@ public class Gateway extends ComponentBase {
                         if (res == null) {
                             logger.error("[{}] ResourceID[{}] unavailable.", localid, resid);
                             return;
-//                            return false;
                         }
 
                         ResourceDefinition oldDef = res.getDefinition();
 
-                        File jsonDef = new File(RES_DEF_DIR, localid + ".json");
                         if (confVars.forceUpdateDef || jsonDef.lastModified() > oldDef.lastModified.getTime()) {
-//                    ResourceDefinition newDef = XML2ResourceDef.parse(xmlDef.getPath());
+                            ResourceDefinition localDef = Json2ResourceDef.parse(je);
 
-                            BufferedReader fr = null;
-                            try {
-                                fr = new BufferedReader(new InputStreamReader(new FileInputStream(jsonDef), "utf-8"));
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                            ResourceDefinition localDef = Json2ResourceDef.parse(fr);
                             if (confVars.forceUpdateDef) {
                                 logger.info("[{}] Force update resource[{}]", localid, resid);
                                 res.setDefinition(localDef);
@@ -399,12 +459,6 @@ public class Gateway extends ComponentBase {
                             }
                         }
 
-//                File xmlDef = new File(XML_DIR, localid + ".xml");
-//                if(xmlDef.lastModified() > oldDef.lastModified.getTime()) {
-//                    logger.info("Update resource[{}]", resid);
-//                    ResourceDefinition newDef = XML2ResourceDef.parse(xmlDef.getPath());
-//                    res.setDefinition(DefinitionHelper.delta(oldDef, newDef));
-//                }
                         bindCommandHandler(res);
                         synchronized (resourcesLock) {
                             resources.add(res);
@@ -432,75 +486,23 @@ public class Gateway extends ComponentBase {
         return true;
     }
 
-    private boolean initializeResource() throws IOException, ParserConfigurationException, SAXException, IllegalAccessException, InstantiationException {
+    private boolean initializeResources() throws IOException, ParserConfigurationException, SAXException, IllegalAccessException, InstantiationException {
 
         logger.info("Initializing resources...");
         idmap = getIDMap();
         if (idmap == null) {
             logger.error("IDMap not found, register all resources and creating a new map file...");
-//            idmap = registerAllResources(XML_DIR);
-//            idmap = registerAllResourecsFromJson(RES_DEF_DIR);
-
-            // update idmap
-//            ConfigurationFile.updateFile(idmap, IDMAP_FILE);
         } else {
             // Retrieve resources and update resources' definition
             logger.info("Checking definition modification...");
             for(Object localid : idmap.keySet()) {
                 String resid = (String)idmap.get(localid);
 
-                // read local resource definition
-                String defFileName = localid+".json";
-                File jsonDef = new File(RES_DEF_DIR, defFileName);
+                Resource res = initializeResource(resid, (String)localid);
 
-                if(jsonDef == null) {
-                    logger.error("Definition file {} not found.", RES_DEF_DIR + '/' + defFileName);
-                    return false;
-                }
-
-                BufferedReader fr = new BufferedReader(new InputStreamReader(new FileInputStream(jsonDef), "utf-8"));
-                ResourceDefinition localDef = Json2ResourceDef.parse(fr);
-
-                ResourceInfo ri = new ResourceInfo();
-                ri.setId(resid);
-                // FIXME check should be read from local definition json file.
-                ri.setCheck("123456");
-                Resource res = DC.connect(ri);
-
-                if(res == null) {
-                    logger.error("ResourceID[{}] unavailable.", resid);
-                    return false;
-                }
-
-                ResourceDefinition oldDef = res.getDefinition();
-
-                if(confVars.forceUpdateDef || jsonDef.lastModified() > oldDef.lastModified.getTime()) {
-//                if(oldDef.lastModified == null || jsonDef.lastModified() > oldDef.lastModified.getTime()) {
-//                    ResourceDefinition newDef = XML2ResourceDef.parse(xmlDef.getPath());
-
-                    if (confVars.forceUpdateDef) {
-                        logger.info("[{}] Force update resource[{}]", localid, resid);
-                        res.setDefinition(localDef);
-                    } else {
-                        logger.info("[{}] Update resource[{}]", localid, resid);
-                        res.setDefinition(DefinitionHelper.delta(oldDef, localDef));
-                    }
-                }
-
-//                File xmlDef = new File(XML_DIR, localid + ".xml");
-//                if(xmlDef.lastModified() > oldDef.lastModified.getTime()) {
-//                    logger.info("Update resource[{}]", resid);
-//                    ResourceDefinition newDef = XML2ResourceDef.parse(xmlDef.getPath());
-//                    res.setDefinition(DefinitionHelper.delta(oldDef, newDef));
-//                }
+                bindCommandHandler(res);
                 resources.add(res);
             }
-        }
-
-        // Bind command handlers
-        logger.info("Binding command handlers...");
-        for(Resource res : resources) {
-            bindCommandHandler(res);
         }
 
         return true;

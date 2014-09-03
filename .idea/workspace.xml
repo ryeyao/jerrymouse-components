@@ -51,7 +51,7 @@
     <file path="$PROJECT_DIR$/../../wshare-2.0-gateway-1.0/src/META-INF/MANIFEST.MF" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397110574373" ignored="false" />
     <file path="$PROJECT_DIR$/../../wshare-2.0-gateway-1.0/src/cn/iie/gaia/startup/GaiaProperties.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1396960639991" ignored="false" />
     <file path="/GaiaProperties.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1396960637977" ignored="false" />
-    <file path="/Gateway.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1402541531804" ignored="false" />
+    <file path="/Gateway.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1409727127200" ignored="false" />
     <file path="/UDPServer.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397204345435" ignored="false" />
     <file path="$PROJECT_DIR$/.idea/artifacts/gateway_jar.xml" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397008492678" ignored="false" />
     <file path="$PROJECT_DIR$/.idea/artifacts/gateway.xml" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397026896777" ignored="false" />
@@ -131,7 +131,7 @@
     <file path="$PROJECT_DIR$/../../bop2014/src/r2/p2/Main.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397980440485" ignored="false" />
     <file path="$PROJECT_DIR$/../../bop2014/src/r2/p3/Main.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397974031514" ignored="false" />
     <file path="$PROJECT_DIR$/../../bop2014/input/r2/in2" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397976826036" ignored="false" />
-    <file path="/Json2ResourceDef.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1403607411953" ignored="false" />
+    <file path="/Json2ResourceDef.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1409047782927" ignored="false" />
     <file path="/ResourceDef2Json.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1398060065602" ignored="false" />
     <file path="$PROJECT_DIR$/../../NBU/result.txt" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1398233164456" ignored="false" />
     <file path="/testCameraCMDHandler.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1398239995279" ignored="false" />
@@ -165,7 +165,68 @@
     <sortChildren value="false" />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/gateway/src/gateway/util/XML2ResourceDef.java" line="41" class="gateway.util.XML2ResourceDef" package="gateway.util">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/gateway/src/gateway/util/XML2ResourceDef.java" line="160" class="gateway.util.XML2ResourceDef" package="gateway.util">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java" line="82" class="gateway.util.Json2ResourceDef" package="gateway.util">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/camera/src/test/testCameraCMDHandler.java" line="15" class="test.testCameraCMDHandler" package="test">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -202,68 +263,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/gateway/src/gateway/util/XML2ResourceDef.java" line="41" class="gateway.util.XML2ResourceDef" package="gateway.util">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/gateway/src/gateway/util/XML2ResourceDef.java" line="160" class="gateway.util.XML2ResourceDef" package="gateway.util">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java" line="69" class="gateway.util.Json2ResourceDef" package="gateway.util">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/camera/src/test/testCameraCMDHandler.java" line="15" class="test.testCameraCMDHandler" package="test">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -278,53 +278,80 @@
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.775351">
       <split-first>
-        <leaf>
-          <file leaf-file-name="Gateway.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gateway/src/gateway/Gateway.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="405" column="64" selection-start="17261" selection-end="17261" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="test.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gateway/src/test.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="34" column="44" selection-start="1258" selection-end="1258" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Json2ResourceDef.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="63" column="32" selection-start="2333" selection-end="2333" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="UDPDataHandler.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPDataHandler.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="28" column="49" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="UDPServer.java" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPServer.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="51" column="66" selection-start="1667" selection-end="1667" vertical-scroll-proportion="0.62203026">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
+        <splitter split-orientation="horizontal" split-proportion="0.5">
+          <split-first>
+            <leaf>
+              <file leaf-file-name="Gateway.java" pinned="false" current="true" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/gateway/src/gateway/Gateway.java">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state line="244" column="26" selection-start="9739" selection-end="9739" vertical-scroll-proportion="-1.5811456">
+                      <folding>
+                        <element signature="e#15524#15832#0" expanded="true" />
+                        <element signature="e#15817#15818#0" expanded="true" />
+                        <element signature="e#16071#19310#0" expanded="true" />
+                        <element signature="e#19291#19292#0" expanded="true" />
+                        <marker date="1409727128246" expanded="true" signature="15081:19588" placeholder="{...}" />
+                        <marker date="1409727128246" expanded="true" signature="19743:20416" placeholder="{...}" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="config.properties" pinned="false" current="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/camera/config.properties">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="config.properties" pinned="false" current="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/sensor/config.properties">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state line="8" column="40" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="CameraCMDHandler.java" pinned="false" current="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraCMDHandler.java">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state line="35" column="58" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.0">
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="Json2ResourceDef.java" pinned="false" current="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state line="40" column="39" selection-start="1280" selection-end="1280" vertical-scroll-proportion="0.0">
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-first>
+          <split-second>
+            <leaf>
+              <file leaf-file-name="Gateway.java" pinned="false" current="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/gateway/src/gateway/Gateway.java">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state line="502" column="39" selection-start="20327" selection-end="20327" vertical-scroll-proportion="0.7857974">
+                      <folding>
+                        <element signature="e#16071#19310#0" expanded="true" />
+                        <element signature="e#19291#19292#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-second>
+        </splitter>
       </split-first>
       <split-second>
         <leaf>
@@ -358,7 +385,7 @@
           <file leaf-file-name="CameraPreProcessor.java" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraPreProcessor.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="16" column="0" selection-start="279" selection-end="279" vertical-scroll-proportion="0.47058824">
+                <state line="13" column="13" selection-start="262" selection-end="262" vertical-scroll-proportion="0.38782817">
                   <folding />
                 </state>
               </provider>
@@ -388,10 +415,10 @@
         <option value="$PROJECT_DIR$/sensor/src/sensor/udp/UDPPacket.java" />
         <option value="$PROJECT_DIR$/camera/config.properties" />
         <option value="$PROJECT_DIR$/sensor/config.properties" />
-        <option value="$PROJECT_DIR$/gateway/src/gateway/Gateway.java" />
         <option value="$PROJECT_DIR$/gateway/src/test.java" />
         <option value="$PROJECT_DIR$/gateway/src/gateway/util/ResourceDef2Json.java" />
         <option value="$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java" />
+        <option value="$PROJECT_DIR$/gateway/src/gateway/Gateway.java" />
       </list>
     </option>
   </component>
@@ -399,8 +426,10 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1680" />
-    <option name="height" value="1050" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -624,6 +653,46 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jerrymouse-devices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jerrymouse-devices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="camera" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jerrymouse-devices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jerrymouse-devices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="camera" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="camera" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -642,7 +711,7 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="FullScreen" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="gradle.tool.window.active" value="Tasks" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -678,7 +747,7 @@
       <recent name="F:\repositories\Apache\jerrymouse-devices\gateway" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.test">
+  <component name="RunManager" selected="Application.Json2ResourceDef">
     <configuration default="false" name="test" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="test" />
@@ -856,9 +925,9 @@
     </list>
     <recent_temporary>
       <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Application.test" />
-        <item index="1" class="java.lang.String" itemvalue="Application.testCameraCMDHandler" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Json2ResourceDef" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Json2ResourceDef" />
+        <item index="1" class="java.lang.String" itemvalue="Application.test" />
+        <item index="2" class="java.lang.String" itemvalue="Application.testCameraCMDHandler" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -893,8 +962,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -903,7 +972,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997773" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32983193" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32586557" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -914,13 +983,13 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JSON Formatter" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21542227" sideWeight="0.6712185" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21504803" sideWeight="0.67413443" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32878152" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32739422" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32668066" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -989,30 +1058,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/SensorUserTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="17" selection-start="161" selection-end="161" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraPreProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="279" selection-end="279" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://F:/LIBs/JavaLIB/JSON/gson/google-gson-2.2.4/gson-2.2.4.jar!/com/google/gson/FieldNamingStrategy.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="54" selection-start="238" selection-end="238" vertical-scroll-proportion="-6.0" />
-      </provider>
-    </entry>
-    <entry file="jar://F:/LIBs/JavaLIB/JSON/gson/google-gson-2.2.4/gson-2.2.4.jar!/com/google/gson/GsonBuilder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="84" selection-start="2121" selection-end="2121" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="jar://F:/LIBs/JavaLIB/JSON/gson/google-gson-2.2.4/gson-2.2.4-sources.jar!/com/google/gson/FieldNamingStrategy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="32" column="70" selection-start="1125" selection-end="1125" vertical-scroll-proportion="0.0" />
@@ -1044,37 +1089,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/ResourceDef2Json.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="37" selection-start="1823" selection-end="1823" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gateway/src/gateway/Gateway.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="405" column="64" selection-start="17261" selection-end="17261" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="53" column="37" selection-start="1823" selection-end="1823" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gateway/src/test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="44" selection-start="1258" selection-end="1258" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraPreProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="279" selection-end="279" vertical-scroll-proportion="0.47058824">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="32" selection-start="2333" selection-end="2333" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="34" column="44" selection-start="1258" selection-end="1258" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPDataHandler.java">
@@ -1086,8 +1106,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="66" selection-start="1667" selection-end="1667" vertical-scroll-proportion="0.62203026">
+        <state line="37" column="48" selection-start="1211" selection-end="1211" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gateway/src/gateway/abstracthandler/CommandHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="22" selection-start="218" selection-end="218" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraCMDHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="58" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gateway/src/gateway/util/Json2ResourceDef.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="39" selection-start="1280" selection-end="1280" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/camera/config.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraPreProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="13" selection-start="262" selection-end="262" vertical-scroll-proportion="0.38782817">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sensor/config.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="40" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gateway/src/gateway/Gateway.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="244" column="26" selection-start="9739" selection-end="9739" vertical-scroll-proportion="-1.5811456">
+          <folding>
+            <element signature="e#15524#15832#0" expanded="true" />
+            <element signature="e#15817#15818#0" expanded="true" />
+            <element signature="e#16071#19310#0" expanded="true" />
+            <element signature="e#19291#19292#0" expanded="true" />
+            <marker date="1409727128246" expanded="true" signature="15081:19588" placeholder="{...}" />
+            <marker date="1409727128246" expanded="true" signature="19743:20416" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
