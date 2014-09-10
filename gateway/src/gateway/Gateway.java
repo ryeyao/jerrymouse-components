@@ -51,6 +51,8 @@ public class Gateway extends ComponentBase {
     private class ConfigurableVars {
         public boolean useAsync = false;
         public boolean forceUpdateDef = false;
+        public boolean autoRetry = true;
+        public int retryIntervalSecond = 1; // available only if autoReconnect is true;
     }
     private ConfigurableVars confVars = new ConfigurableVars();
 
@@ -99,6 +101,13 @@ public class Gateway extends ComponentBase {
             confVars.forceUpdateDef = Boolean.valueOf(config.getProperty("force_update_def"));
         }
 
+        if (config.containsKey("auto_retry")) {
+            confVars.autoRetry = Boolean.valueOf(config.getProperty("auto_retry"));
+            if (confVars.autoRetry && config.containsKey("retry_interval_second")) {
+                confVars.retryIntervalSecond = Integer.valueOf(config.getProperty("retry_interval_second"));
+            }
+        }
+
         System.setProperty(DC.SP_HOST, config.getProperty("server.host"));
         System.setProperty(DC.SP_PORT, config.getProperty("server.port"));
 
@@ -120,7 +129,13 @@ public class Gateway extends ComponentBase {
 
         try {
             while (!(confVars.useAsync? initializeResourcesAsync(): initializeResources())) {
-                logger.error("Initialization failed. Trying again...");
+                if (!confVars.autoRetry) {
+                    logger.error("Initialization failed. Finished working.");
+                    return;
+                }
+
+                logger.error("Initialization failed. Try again after {} seconds...", confVars.retryIntervalSecond);
+                Thread.sleep(confVars.retryIntervalSecond * 1000);
             }
             logger.info("Initialization done.");
         } catch (IOException e) {
@@ -132,6 +147,8 @@ public class Gateway extends ComponentBase {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

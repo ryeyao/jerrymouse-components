@@ -51,7 +51,7 @@
     <file path="$PROJECT_DIR$/../../wshare-2.0-gateway-1.0/src/META-INF/MANIFEST.MF" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397110574373" ignored="false" />
     <file path="$PROJECT_DIR$/../../wshare-2.0-gateway-1.0/src/cn/iie/gaia/startup/GaiaProperties.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1396960639991" ignored="false" />
     <file path="/GaiaProperties.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1396960637977" ignored="false" />
-    <file path="/Gateway.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1409729211896" ignored="false" />
+    <file path="/Gateway.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1410312871789" ignored="false" />
     <file path="/UDPServer.java" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397204345435" ignored="false" />
     <file path="$PROJECT_DIR$/.idea/artifacts/gateway_jar.xml" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397008492678" ignored="false" />
     <file path="$PROJECT_DIR$/.idea/artifacts/gateway.xml" changelist="3449e1be-f42f-479b-b6c9-f56be51e82d9" time="1397026896777" ignored="false" />
@@ -278,22 +278,22 @@
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.775351">
       <split-first>
-        <splitter split-orientation="horizontal" split-proportion="0.5">
+        <splitter split-orientation="horizontal" split-proportion="0.7236842">
           <split-first>
             <leaf>
-              <file leaf-file-name="Gateway.java" pinned="false" current="false" current-in-tab="true">
+              <file leaf-file-name="Gateway.java" pinned="false" current="true" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/gateway/src/gateway/Gateway.java">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state line="323" column="45" selection-start="11796" selection-end="11796" vertical-scroll-proportion="0.86515516">
+                    <state line="137" column="65" selection-start="5453" selection-end="5453" vertical-scroll-proportion="0.6721854">
                       <folding>
                         <element signature="imports" expanded="true" />
-                        <element signature="e#8488#8796#0" expanded="true" />
-                        <element signature="e#8781#8782#0" expanded="true" />
-                        <element signature="e#9035#10011#0" expanded="true" />
-                        <element signature="e#9992#9993#0" expanded="true" />
-                        <marker date="1409729629607" expanded="true" signature="3935:3957" placeholder="//..." />
-                        <marker date="1409729629607" expanded="true" signature="8052:10289" placeholder="{...}" />
-                        <marker date="1409729629607" expanded="true" signature="10444:11300" placeholder="{...}" />
+                        <element signature="e#9323#9631#0" expanded="true" />
+                        <element signature="e#9616#9617#0" expanded="true" />
+                        <element signature="e#9870#10846#0" expanded="true" />
+                        <element signature="e#10827#10828#0" expanded="true" />
+                        <marker date="1410312881436" expanded="true" signature="4415:4437" placeholder="//..." />
+                        <marker date="1410312881436" expanded="true" signature="8887:11124" placeholder="{...}" />
+                        <marker date="1410312881436" expanded="true" signature="11279:12135" placeholder="{...}" />
                       </folding>
                     </state>
                   </provider>
@@ -339,13 +339,13 @@
           </split-first>
           <split-second>
             <leaf>
-              <file leaf-file-name="Gateway.java" pinned="false" current="true" current-in-tab="true">
+              <file leaf-file-name="Gateway.java" pinned="false" current="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/gateway/src/gateway/Gateway.java">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state line="239" column="12" selection-start="8961" selection-end="8961" vertical-scroll-proportion="0.757858">
+                    <state line="136" column="75" selection-start="5347" selection-end="5347" vertical-scroll-proportion="-4.2615895">
                       <folding>
-                        <element signature="e#9035#10011#0" expanded="true" />
-                        <element signature="e#9992#9993#0" expanded="true" />
+                        <element signature="e#9870#10846#0" expanded="true" />
+                        <element signature="e#10827#10828#0" expanded="true" />
                       </folding>
                     </state>
                   </provider>
@@ -387,7 +387,7 @@
           <file leaf-file-name="CameraPreProcessor.java" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraPreProcessor.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="13" column="13" selection-start="262" selection-end="262" vertical-scroll-proportion="0.38782817">
+                <state line="13" column="13" selection-start="262" selection-end="262" vertical-scroll-proportion="0.57829183">
                   <folding />
                 </state>
               </provider>
@@ -558,86 +558,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="udp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gateway" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gateway" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gateway" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gateway" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jerrymouse-devices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gateway" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gateway" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -974,7 +894,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997773" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32586557" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28396437" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -986,7 +906,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JSON Formatter" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21504803" sideWeight="0.67413443" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21504803" sideWeight="0.71603566" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32878152" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1096,7 +1016,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gateway/src/test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="44" selection-start="1258" selection-end="1258" vertical-scroll-proportion="0.0" />
+        <state line="34" column="44" selection-start="1258" selection-end="1258" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sensor/src/sensor/udp/UDPDataHandler.java">
@@ -1143,7 +1065,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/camera/src/camera/CameraPreProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="262" selection-end="262" vertical-scroll-proportion="0.38782817">
+        <state line="13" column="13" selection-start="262" selection-end="262" vertical-scroll-proportion="0.57829183">
           <folding />
         </state>
       </provider>
@@ -1157,10 +1079,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gateway/src/gateway/Gateway.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="239" column="12" selection-start="8961" selection-end="8961" vertical-scroll-proportion="0.757858">
+        <state line="137" column="65" selection-start="5453" selection-end="5453" vertical-scroll-proportion="0.6721854">
           <folding>
-            <element signature="e#9035#10011#0" expanded="true" />
-            <element signature="e#9992#9993#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#9323#9631#0" expanded="true" />
+            <element signature="e#9616#9617#0" expanded="true" />
+            <element signature="e#9870#10846#0" expanded="true" />
+            <element signature="e#10827#10828#0" expanded="true" />
+            <marker date="1410312881436" expanded="true" signature="4415:4437" placeholder="//..." />
+            <marker date="1410312881436" expanded="true" signature="8887:11124" placeholder="{...}" />
+            <marker date="1410312881436" expanded="true" signature="11279:12135" placeholder="{...}" />
           </folding>
         </state>
       </provider>
