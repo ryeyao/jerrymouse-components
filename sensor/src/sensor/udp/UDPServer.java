@@ -6,9 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.SocketException;
+import java.net.*;
 import java.util.Properties;
 
 /**
@@ -28,14 +26,15 @@ public class UDPServer extends StoppableLoopThread {
         dh = udph;
     }
 
-    public void init() throws SocketException {
+    public void init() throws SocketException, UnknownHostException {
         logger.info("Initializing UDP Server...");
         ConfigurationFile cf = new ConfigurationFile();
         Properties config = cf.loadConfiguration();
         host = config.getProperty("udp.host");
         port = Integer.valueOf(config.getProperty("udp.port"));
-        serverSocket = new DatagramSocket(port);
-        logger.info("UDP Server listening on port " + port);
+        InetAddress addr = InetAddress.getByName(host);
+        serverSocket = new DatagramSocket(port, addr);
+        logger.info("UDP Server listening on {} port {}", addr.getHostAddress(), port);
         recvBuffer = new byte[1024];
 //        sendBuffer = new byte[1024];
     }
