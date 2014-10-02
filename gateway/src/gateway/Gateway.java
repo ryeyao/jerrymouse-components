@@ -9,6 +9,8 @@ import gateway.abstracthandler.CommandHandler;
 import gateway.abstracthandler.PreProcessor;
 import gateway.util.ConfigurationFile;
 import gateway.util.Json2ResourceDef;
+import gateway.util.MoreResourceInfo;
+import gateway.util.ResourceCache;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
@@ -42,7 +44,8 @@ public class Gateway extends ComponentBase {
     public static String BASE_DIR = "";
 
     private HashMap<String, Property> handlers = new HashMap<String, Property>();
-    private ArrayList<Resource> resources = new ArrayList<Resource>();
+
+    //private ArrayList<Resource> resources = new ArrayList<Resource>();
     private static final Object idmapLock = new Object();
     private static final Object resourcesLock = new Object();
     private static final Object registerLock = new Object();
@@ -167,9 +170,11 @@ public class Gateway extends ComponentBase {
         }
     }
 
-    private Resource initializeResource(String resid, String localid) {
+    private Resource initializeResource(ResourceInfo resInfo) {
+        MoreResourceInfo ri = (MoreResourceInfo) resInfo;
+        String resid = ri.getId();
+        String localid = ri.getLocalId();
         logger.info("\n{}:{} config={}", resid, localid, ConfigurationFile.instance().loadConfiguration().getProperty("server.host"));
-        ResourceInfo ri = new ResourceInfo();
 
         String defFileName = localid + ".json";
         File jsonDef = new File(RES_DEF_DIR, defFileName);
@@ -195,7 +200,6 @@ public class Gateway extends ComponentBase {
 
         // FIXME Check regex pattern
         ri.setCheck(check);
-        ri.setId(resid);
 
         Resource res = null;
         try {
@@ -257,14 +261,19 @@ public class Gateway extends ComponentBase {
 
                         String resid = (String) idmap.get(localid);
 
-                        Resource res = initializeResource(resid, (String) localid);
+                        ResourceInfo ri = new MoreResourceInfo();
+                        ri.setId(resid);
+                        ((MoreResourceInfo) ri).setLocalId((String) localid);
+
+                        Resource res = initializeResource(ri);
                         if(res == null) {
                             logger.error("Skip resource [{}] : [{}]", (String)localid, resid);
                             return;
                         }
+
                         bindCommandHandler(res);
                         synchronized (resourcesLock) {
-                            resources.add(res);
+                            ResourceCache.instance().addResource(res);
                         }
                         try {
                             barrier.await();
@@ -302,14 +311,17 @@ public class Gateway extends ComponentBase {
             for(Object localid : idmap.keySet()) {
                 String resid = (String)idmap.get(localid);
 
-                Resource res = initializeResource(resid, (String)localid);
+                ResourceInfo ri = new MoreResourceInfo();
+                ri.setId(resid);
+                ((MoreResourceInfo) ri).setLocalId((String)localid);
+                Resource res = initializeResource(ri);
                 if(res == null) {
                     logger.error("Skip resource [{}] : [{}]", (String)localid, resid);
                     continue;
                 }
 
                 bindCommandHandler(res);
-                resources.add(res);
+                ResourceCache.instance().addResource(res);
             }
         }
 
@@ -330,7 +342,7 @@ public class Gateway extends ComponentBase {
             Property cp = handlers.get(hdlr);
             cp.unregisterReader(hdlr);
         }
-        resources = null;
+        ResourceCache.instance().clearCache();
     }
 
     @Override
