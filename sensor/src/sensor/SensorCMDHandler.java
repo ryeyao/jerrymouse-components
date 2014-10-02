@@ -8,6 +8,7 @@ import sensor.udp.UDPPacket;
 import wshare.dc.resource.DataItem;
 import wshare.dc.resource.PID;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketException;
@@ -31,6 +32,10 @@ public class SensorCMDHandler extends CommandHandler {
             client.init();
         } catch (SocketException e) {
             e.printStackTrace();
+            return;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return;
         }
         typeMap = new HashMap();
         typeMap.put(7, "温度");

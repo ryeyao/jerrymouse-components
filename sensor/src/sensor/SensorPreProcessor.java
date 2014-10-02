@@ -4,7 +4,9 @@ import gateway.abstracthandler.PreProcessor;
 import sensor.udp.UDPDataHandler;
 import sensor.udp.UDPServer;
 
+import java.io.FileNotFoundException;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,10 +21,14 @@ public class SensorPreProcessor implements PreProcessor {
             startDataCollector();
         } catch (SocketException e) {
             e.printStackTrace();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
-    private void startDataCollector() throws SocketException {
+    private void startDataCollector() throws SocketException, UnknownHostException, FileNotFoundException {
         UDPServer udpServer = new UDPServer();
         udpServer.init();
 

@@ -64,18 +64,11 @@ public class Gateway extends ComponentBase {
         XML_DIR = getComponentBase() + File.separatorChar + XML_DIR;
         RES_DEF_DIR = getComponentBase() + File.separatorChar + RES_DEF_DIR;
         BASE_DIR = getComponentBase();
-        ConfigurationFile.fileName = getComponentBase() + File.separatorChar + ConfigurationFile.fileName;
 
-        ConfigurationFile cf = new ConfigurationFile();
+        ConfigurationFile cf = ConfigurationFile.instance();
+        cf.setFilePath(getComponentBase() + File.separatorChar + ConfigurationFile.fileName);
 
         Properties config = cf.loadConfiguration();
-
-        if (config == null) {
-            logger.info("Configuration file not found, recreating...");
-            config = cf.initDefaultConfiguration();
-            cf.updateFile(config);
-        }
-
         return config;
     }
 
@@ -86,11 +79,14 @@ public class Gateway extends ComponentBase {
         logger.info("Initialize gateway");
         Properties config = loadConfiguration();
 
+        if (config == null) {
+            throw new LifecycleException("Configuration file {} not found, exiting...");
+        }
+
         if (!config.containsKey("server.host") || !config.containsKey("server.port")
                 || !config.containsKey("client.commandhandler")
                 || !config.containsKey("client.preprocessor")) {
-            logger.error("property [server.host], [server.port], [client.commandhandler] and [client.preprocessor] must be specified.");
-            return;
+            throw new LifecycleException("property [server.host], [server.port], [client.commandhandler] and [client.preprocessor] must be specified.");
         }
 
         if (config.containsKey("use_async")) {
@@ -130,8 +126,7 @@ public class Gateway extends ComponentBase {
         try {
             while (!(confVars.useAsync? initializeResourcesAsync(): initializeResources())) {
                 if (!confVars.autoRetry) {
-                    logger.error("Initialization failed. Finished working.");
-                    return;
+                    throw new LifecycleException("Initialization failed. Finished working.");
                 }
 
                 logger.error("Initialization failed. Try again after {} seconds...", confVars.retryIntervalSecond);
@@ -173,6 +168,7 @@ public class Gateway extends ComponentBase {
     }
 
     private Resource initializeResource(String resid, String localid) {
+        logger.info("\n{}:{} config={}", resid, localid, ConfigurationFile.instance().loadConfiguration().getProperty("server.host"));
         ResourceInfo ri = new ResourceInfo();
 
         String defFileName = localid + ".json";
@@ -321,7 +317,7 @@ public class Gateway extends ComponentBase {
     }
 
     public static Properties getIDMap() {
-        ConfigurationFile cf = new ConfigurationFile();
+        ConfigurationFile cf = ConfigurationFile.instance();
         Properties map = cf.loadConfiguration(IDMAP_FILE);
 
         return map;

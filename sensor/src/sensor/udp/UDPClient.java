@@ -4,6 +4,7 @@ import gateway.util.ConfigurationFile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -24,11 +25,14 @@ public class UDPClient {
     private byte[] sendBuffer;
     private byte[] recvBuffer;
 
-    public void init() throws SocketException {
+    public void init() throws SocketException, FileNotFoundException {
         logger.info("Initializing udp Client...");
 
-        ConfigurationFile cf = new ConfigurationFile();
+        ConfigurationFile cf = ConfigurationFile.instance();
         Properties config = cf.loadConfiguration();
+        if (config == null) {
+            throw new FileNotFoundException("Configuration file not found.");
+        }
         host = config.getProperty("gateway.host");
         port = Integer.valueOf(config.getProperty("gateway.port"));
 //        clientSocket = new DatagramSocket(new InetSocketAddress(host, port));

@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.net.URLClassLoader;
 import java.util.Properties;
 
 /**
@@ -11,11 +12,26 @@ import java.util.Properties;
  */
 public class ConfigurationFile {
 
-    public static String fileName = "config.properties";
+    public static final String fileName = "config.properties";
     static final Logger logger = LogManager.getLogger(ConfigurationFile.class.getName());
 
+    private static volatile String filePath = null;
+    private static volatile Properties config = null;
+    private static volatile boolean isFilePathSet = false;
+
+    private static final class ConfigurationSingleton {
+        private static final ConfigurationFile instance = new ConfigurationFile();
+    }
+
+    private ConfigurationFile() {}
+
+    public static ConfigurationFile instance() {
+        return ConfigurationSingleton.instance;
+    }
+
+    @Deprecated
     public void updateFile(Properties prop) {
-        updateFile(prop, fileName);
+        updateFile(prop, filePath);
     }
 
     public static void updateFile(Properties prop, String fname) {
@@ -43,10 +59,18 @@ public class ConfigurationFile {
     }
 
     public Properties loadConfiguration() {
-        return loadConfiguration(fileName);
+        if (filePath == null) {
+            return null;
+        }
+
+        if (config == null) {
+            config = loadConfiguration(filePath);
+        }
+
+        return config;
     }
 
-    public Properties loadConfiguration(String fname) {
+    public static Properties loadConfiguration(String fname) {
         logger.info("Loading configuration file {}", fname);
         Properties prop = new Properties();
         InputStream input = null;
@@ -76,7 +100,8 @@ public class ConfigurationFile {
         }
     }
 
-    public Properties initDefaultConfiguration() {
+    @Deprecated
+    private Properties initDefaultConfiguration() {
 
         Properties prop = new Properties();
         prop.setProperty("server.host", "192.168.119.175");
@@ -89,5 +114,17 @@ public class ConfigurationFile {
         prop.setProperty("client.preprocessor", "   #add your own implementation of PreProcessor here");
 
         return prop;
+    }
+
+    public String getFilePath() {
+        return new String(filePath);
+    }
+
+    public void setFilePath(String filePath) {
+        if (isFilePathSet) {
+            return;
+        }
+        this.filePath = filePath;
+        isFilePathSet = true;
     }
 }
