@@ -21,10 +21,8 @@ import wshare.dc.util.DefinitionHelper;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Rye on 2/21/14.
@@ -174,7 +172,6 @@ public class Gateway extends ComponentBase {
         MoreResourceInfo ri = (MoreResourceInfo) resInfo;
         String resid = ri.getId();
         String localid = ri.getLocalId();
-        logger.info("\n{}:{} config={}", resid, localid, ConfigurationFile.instance().loadConfiguration().getProperty("server.host"));
 
         String defFileName = localid + ".json";
         File jsonDef = new File(RES_DEF_DIR, defFileName);
@@ -203,7 +200,7 @@ public class Gateway extends ComponentBase {
 
         Resource res = null;
         try {
-            res = DC.connect(ri);
+            res = DC.connect(ri.getResourceInfo());
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -240,7 +237,15 @@ public class Gateway extends ComponentBase {
             logger.error("File idmap.ini not found or is empty.");
             return false;
         } else {
-            final ExecutorService exec = Executors.newCachedThreadPool();
+            final String componentName = this.getName();
+            ThreadFactory namedThreadFactory = new ThreadFactory() {
+                private final AtomicInteger poolNumber = new AtomicInteger(1);
+                @Override
+                public Thread newThread(Runnable r) {
+                    return new Thread(r, componentName + "-" + poolNumber.getAndIncrement());
+                }
+            };
+            final ExecutorService exec = Executors.newCachedThreadPool(namedThreadFactory);
             final CyclicBarrier barrier = new CyclicBarrier(idmap.size(), new Runnable() {
                 @Override
                 public void run() {
@@ -261,9 +266,9 @@ public class Gateway extends ComponentBase {
 
                         String resid = (String) idmap.get(localid);
 
-                        ResourceInfo ri = new MoreResourceInfo();
+                        MoreResourceInfo ri = new MoreResourceInfo();
                         ri.setId(resid);
-                        ((MoreResourceInfo) ri).setLocalId((String) localid);
+                        ri.setLocalId((String) localid);
 
                         Resource res = initializeResource(ri);
                         if(res == null) {
@@ -273,7 +278,7 @@ public class Gateway extends ComponentBase {
 
                         bindCommandHandler(res);
                         synchronized (resourcesLock) {
-                            ResourceCache.instance().addResource(res);
+                            ResourceCache.instance().addResource(res, ri);
                         }
                         try {
                             barrier.await();
@@ -311,7 +316,7 @@ public class Gateway extends ComponentBase {
             for(Object localid : idmap.keySet()) {
                 String resid = (String)idmap.get(localid);
 
-                ResourceInfo ri = new MoreResourceInfo();
+                MoreResourceInfo ri = new MoreResourceInfo();
                 ri.setId(resid);
                 ((MoreResourceInfo) ri).setLocalId((String)localid);
                 Resource res = initializeResource(ri);
@@ -321,7 +326,7 @@ public class Gateway extends ComponentBase {
                 }
 
                 bindCommandHandler(res);
-                ResourceCache.instance().addResource(res);
+                ResourceCache.instance().addResource(res, ri);
             }
         }
 

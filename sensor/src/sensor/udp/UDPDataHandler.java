@@ -1,6 +1,8 @@
 package sensor.udp;
 
 import gateway.Gateway;
+import gateway.util.MoreResourceInfo;
+import gateway.util.ResourceCache;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import wshare.dc.DC;
@@ -19,7 +21,7 @@ import java.util.Properties;
 public class UDPDataHandler{
 
     private static Logger logger = LogManager.getLogger(UDPDataHandler.class.getName());
-    private Properties idmap = Gateway.getIDMap();
+    //private Properties idmap = Gateway.getIDMap();
 
     public void onReceive(byte[] data) throws IOException {
         UDPPacket packet = new UDPPacket();
@@ -28,17 +30,14 @@ public class UDPDataHandler{
 //        logger.info(data);
         logger.info("\nIncoming data: " + packet);
 
-        String resid = idmap.getProperty(String.valueOf(packet.getNodeid()));
+        String localid = String.valueOf(packet.getNodeid());
 
-        if (resid == null) {
+        Resource res = ResourceCache.instance().getResourceByLocalId(localid);
+
+        if (res == null) {
             logger.error("Unknown data source");
             return;
         }
-
-        ResourceInfo ri = new ResourceInfo();
-        ri.setId(resid);
-        ri.setCheck("123456");
-        Resource res = DC.connect(ri);
 
         long datatype = packet.getType();
         Property p = null;
@@ -63,7 +62,9 @@ public class UDPDataHandler{
             return;
         }
         DataItem dataItem = new DataItem(new Date(),  packet.getValue().getBytes());
-        p.write(dataItem);
+        synchronized (p) {
+            p.write(dataItem);
+        }
 
     }
 }

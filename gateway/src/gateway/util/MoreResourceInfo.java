@@ -19,4 +19,11 @@ public class MoreResourceInfo extends ResourceInfo {
     public void setLocalId(String localId) {
         this.localId = localId;
     }
+
+    public ResourceInfo getResourceInfo() {
+        ResourceInfo resInfo = new ResourceInfo();
+        resInfo.setId(super.getId());
+        resInfo.setCheck(super.getCheck());
+        return resInfo;
+    }
 }
