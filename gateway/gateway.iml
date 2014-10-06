@@ -8,8 +8,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="gson-2.2.4" level="application" />
-    <orderEntry type="library" name="wsdc" level="project" />
     <orderEntry type="library" name="Bootstrap" level="application" />
+    <orderEntry type="library" name="wsdc-2" level="application" />
+    <orderEntry type="library" name="apache-log4j-2" level="application" />
   </component>
 </module>
 
