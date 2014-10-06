@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import gateway.abstracthandler.CommandHandler;
 import gateway.abstracthandler.PreProcessor;
+import gateway.abstracthandler.Worker;
 import gateway.util.ConfigurationFile;
 import gateway.util.Json2ResourceDef;
 import gateway.util.MoreResourceInfo;
@@ -57,8 +58,9 @@ public class Gateway extends ComponentBase {
     }
     private ConfigurableVars confVars = new ConfigurableVars();
 
-    private Class<CommandHandler> commandHandlerClass;
-    private Class<PreProcessor> preprocessorClass;
+    private Class<CommandHandler> commandHandlerClass = null;
+    private Class<PreProcessor> preprocessorClass = null;
+    private Class<Worker> workerClass = null;
 
     public Properties loadConfiguration() {
         IDMAP_FILE = getComponentBase() + File.separatorChar + IDMAP_FILE;
@@ -113,12 +115,11 @@ public class Gateway extends ComponentBase {
 
         try {
             commandHandlerClass = (Class<CommandHandler>)classLoader.loadClass(config.getProperty("client.commandhandler"));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
-        try {
             preprocessorClass = (Class<PreProcessor>)classLoader.loadClass(config.getProperty("client.preprocessor"));
+
+            if (config.containsKey("client.worker")) {
+                workerClass = (Class<Worker>)classLoader.loadClass(config.getProperty("client.worker"));
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return;
@@ -364,6 +365,19 @@ public class Gateway extends ComponentBase {
             e.printStackTrace();
         }
         preProcessor.prepare();
+
+        if (workerClass != null) {
+            Worker worker = null;
+            try {
+                worker = workerClass.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+            worker.start();
+        }
 
         logger.info("Started.");
     }
