@@ -11,6 +11,9 @@
     <orderEntry type="library" name="Bootstrap" level="application" />
     <orderEntry type="library" name="wsdc-2" level="application" />
     <orderEntry type="library" name="apache-log4j-2" level="application" />
+    <orderEntry type="library" name="commons-configuration-1" level="application" />
+    <orderEntry type="library" name="commons-lang3-3.3" level="application" />
+    <orderEntry type="library" name="commons-lang-2" level="application" />
   </component>
 </module>
 

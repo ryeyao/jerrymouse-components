@@ -1,9 +1,9 @@
 package gateway.util;
 
 import wshare.dc.resource.Resource;
-import wshare.dc.resource.ResourceInfo;
 
-import java.util.Hashtable;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,14 +16,14 @@ public final class ResourceCache {
     private static class ResourceCacheSingleton {
         private static ResourceCache instance = new ResourceCache();
     }
-    private static Hashtable<String, Resource> resources;
-    private static Hashtable<String, MoreResourceInfo> resInfos;
-    private static Hashtable<String, String> localIdToResId;
+    private static Map<String, Resource> resources;
+    private static Map<String, MoreResourceInfo> resInfos;
+    private static Map<String, String> localIdToResId;
 
     private ResourceCache() {
-        resources = new Hashtable<String, Resource>();
-        resInfos = new Hashtable<String, MoreResourceInfo>();
-        localIdToResId = new Hashtable<String, String>();
+        resources = new ConcurrentHashMap<String, Resource>();
+        resInfos = new ConcurrentHashMap<String, MoreResourceInfo>();
+        localIdToResId = new ConcurrentHashMap<String, String>();
     }
 
     public static ResourceCache instance() {

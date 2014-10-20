@@ -8,10 +8,13 @@ import com.google.gson.JsonParser;
 import gateway.abstracthandler.CommandHandler;
 import gateway.abstracthandler.PreProcessor;
 import gateway.abstracthandler.Worker;
-import gateway.util.ConfigurationFile;
+import gateway.util.Configurations;
 import gateway.util.Json2ResourceDef;
 import gateway.util.MoreResourceInfo;
 import gateway.util.ResourceCache;
+import static gateway.util.Configurations.ConfigurableVars.*;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
@@ -44,35 +47,21 @@ public class Gateway extends ComponentBase {
 
     private HashMap<String, Property> handlers = new HashMap<String, Property>();
 
-    //private ArrayList<Resource> resources = new ArrayList<Resource>();
-    private static final Object idmapLock = new Object();
-    private static final Object resourcesLock = new Object();
-    private static final Object registerLock = new Object();
-
-    // Configurable vars
-    private class ConfigurableVars {
-        public boolean useAsync = false;
-        public boolean forceUpdateDef = false;
-        public boolean autoRetry = true;
-        public int retryIntervalSecond = 1; // available only if autoReconnect is true;
-    }
-    private ConfigurableVars confVars = new ConfigurableVars();
+//    private ConfigurableVars confVars = new ConfigurableVars();
 
     private Class<CommandHandler> commandHandlerClass = null;
     private Class<PreProcessor> preprocessorClass = null;
     private Class<Worker> workerClass = null;
 
-    public Properties loadConfiguration() {
+    public void loadConfiguration() throws ConfigurationException {
         IDMAP_FILE = getComponentBase() + File.separatorChar + IDMAP_FILE;
         XML_DIR = getComponentBase() + File.separatorChar + XML_DIR;
         RES_DEF_DIR = getComponentBase() + File.separatorChar + RES_DEF_DIR;
         BASE_DIR = getComponentBase();
 
-        ConfigurationFile cf = ConfigurationFile.instance();
-        cf.setFilePath(getComponentBase() + File.separatorChar + ConfigurationFile.fileName);
-
-        Properties config = cf.loadConfiguration();
-        return config;
+        Configurations cf = Configurations.instance();
+        cf.addConfiguration(new PropertiesConfiguration(getComponentBase() + File.separator + Configurations.fileName), true);
+        cf.addConfiguration(new PropertiesConfiguration(IDMAP_FILE));
     }
 
     @Override
@@ -80,59 +69,67 @@ public class Gateway extends ComponentBase {
 
         Thread.currentThread().setContextClassLoader(Gateway.class.getClassLoader());
         logger.info("Initialize gateway");
-        Properties config = loadConfiguration();
+        try {
+            loadConfiguration();
+        } catch (ConfigurationException e) {
+            throw new LifecycleException("Load configuration error.");
+        }
+        Configurations config = Configurations.instance();
 
-        if (config == null) {
-            throw new LifecycleException("Configuration file {} not found, exiting...");
+//        if (config == null) {
+//            throw new LifecycleException("Configuration file {} not found, exiting...");
+//        }
+
+        serverHost = config.getString(SERVER_HOST, serverHost);
+        serverPort = config.getString(SERVER_PORT, serverPort);
+        clientVars.commandHandler = config.getString(clientVars.COMMAND_HANDLER, clientVars.commandHandler);
+        clientVars.preProcessor = config.getString(clientVars.PREPROCESSOR, clientVars.preProcessor);
+
+
+        if (serverHost == null || serverPort == null
+                || clientVars.commandHandler == null
+                || clientVars.preProcessor == null) {
+            throw new LifecycleException(String.format("property [%s], [%s], [%s] and [%s] must be specified.", SERVER_HOST, SERVER_PORT, clientVars.COMMAND_HANDLER, clientVars.PREPROCESSOR));
         }
 
-        if (!config.containsKey("server.host") || !config.containsKey("server.port")
-                || !config.containsKey("client.commandhandler")
-                || !config.containsKey("client.preprocessor")) {
-            throw new LifecycleException("property [server.host], [server.port], [client.commandhandler] and [client.preprocessor] must be specified.");
+        useAsync = config.getBoolean(USE_ASYNC, useAsync);
+
+        forceUpdateDef = config.getBoolean(FORCE_UPDATE_DEF, forceUpdateDef);
+
+        autoRetry = config.getBoolean(AUTO_RETRY, autoRetry);
+        if (autoRetry) {
+            retryIntervalSecond = config.getInt(RETRY_INTERVAL_SECOND, retryIntervalSecond);
         }
 
-        if (config.containsKey("use_async")) {
-            confVars.useAsync = Boolean.valueOf(config.getProperty("use_async"));
-        }
+        System.setProperty(DC.SP_HOST, serverHost);
+        System.setProperty(DC.SP_PORT, serverPort);
 
-        if (config.containsKey("force_update_def")) {
-            confVars.forceUpdateDef = Boolean.valueOf(config.getProperty("force_update_def"));
-        }
-
-        if (config.containsKey("auto_retry")) {
-            confVars.autoRetry = Boolean.valueOf(config.getProperty("auto_retry"));
-            if (confVars.autoRetry && config.containsKey("retry_interval_second")) {
-                confVars.retryIntervalSecond = Integer.valueOf(config.getProperty("retry_interval_second"));
-            }
-        }
-
-        System.setProperty(DC.SP_HOST, config.getProperty("server.host"));
-        System.setProperty(DC.SP_PORT, config.getProperty("server.port"));
+        clientVars.worker = config.getString(clientVars.WORKER, clientVars.worker);
 
         // load class
         ClassLoader classLoader = this.getClass().getClassLoader();
 
         try {
-            commandHandlerClass = (Class<CommandHandler>)classLoader.loadClass(config.getProperty("client.commandhandler"));
-            preprocessorClass = (Class<PreProcessor>)classLoader.loadClass(config.getProperty("client.preprocessor"));
+            commandHandlerClass = (Class<CommandHandler>)classLoader.loadClass(clientVars.commandHandler);
+            preprocessorClass = (Class<PreProcessor>)classLoader.loadClass(clientVars.preProcessor);
 
-            if (config.containsKey("client.worker")) {
-                workerClass = (Class<Worker>)classLoader.loadClass(config.getProperty("client.worker"));
+            if (clientVars.worker != null) {
+                workerClass = (Class<Worker>)classLoader.loadClass(clientVars.worker);
             }
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return;
         }
 
         try {
-            while (!(confVars.useAsync? initializeResourcesAsync(): initializeResources())) {
-                if (!confVars.autoRetry) {
+            while (!(useAsync? initializeResourcesAsync(): initializeResources())) {
+                if (!autoRetry) {
                     throw new LifecycleException("Initialization failed. Finished working.");
                 }
 
-                logger.error("Initialization failed. Try again after {} seconds...", confVars.retryIntervalSecond);
-                Thread.sleep(confVars.retryIntervalSecond * 1000);
+                logger.error("Initialization failed. Try again after {} seconds...", retryIntervalSecond);
+                Thread.sleep(retryIntervalSecond * 1000);
             }
             logger.info("Initialization done.");
         } catch (IOException e) {
@@ -214,10 +211,10 @@ public class Gateway extends ComponentBase {
 
         ResourceDefinition oldDef = res.getDefinition();
 
-        if (confVars.forceUpdateDef || jsonDef.lastModified() > oldDef.lastModified.getTime()) {
+        if (forceUpdateDef || jsonDef.lastModified() > oldDef.lastModified.getTime()) {
             ResourceDefinition localDef = Json2ResourceDef.parse(je);
 
-            if (confVars.forceUpdateDef) {
+            if (forceUpdateDef) {
                 logger.info("[{}] Force update resource[{}]", localid, resid);
                 res.setDefinition(localDef);
             } else {
@@ -273,14 +270,12 @@ public class Gateway extends ComponentBase {
 
                         Resource res = initializeResource(ri);
                         if(res == null) {
-                            logger.error("Skip resource [{}] : [{}]", (String)localid, resid);
+                            logger.error("Skip resource [{}] : [{}]", localid, resid);
                             return;
                         }
 
                         bindCommandHandler(res);
-                        synchronized (resourcesLock) {
-                            ResourceCache.instance().addResource(res, ri);
-                        }
+                        ResourceCache.instance().addResource(res, ri);
                         try {
                             barrier.await();
                         } catch (InterruptedException e) {
@@ -319,10 +314,10 @@ public class Gateway extends ComponentBase {
 
                 MoreResourceInfo ri = new MoreResourceInfo();
                 ri.setId(resid);
-                ((MoreResourceInfo) ri).setLocalId((String)localid);
+                ri.setLocalId((String)localid);
                 Resource res = initializeResource(ri);
                 if(res == null) {
-                    logger.error("Skip resource [{}] : [{}]", (String)localid, resid);
+                    logger.error("Skip resource [{}] : [{}]", localid, resid);
                     continue;
                 }
 
@@ -335,7 +330,7 @@ public class Gateway extends ComponentBase {
     }
 
     public static Properties getIDMap() {
-        ConfigurationFile cf = ConfigurationFile.instance();
+        Configurations cf = Configurations.instance();
         Properties map = cf.loadConfiguration(IDMAP_FILE);
 
         return map;

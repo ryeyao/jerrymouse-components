@@ -1,7 +1,7 @@
 package sensor.udp;
 
 import cn.iie.gaia.util.StoppableLoopThread;
-import gateway.util.ConfigurationFile;
+import gateway.util.Configurations;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +28,7 @@ public class UDPServer extends StoppableLoopThread {
 
     public void init() throws SocketException, UnknownHostException {
         logger.info("Initializing UDP Server...");
-        ConfigurationFile cf = ConfigurationFile.instance();
+        Configurations cf = Configurations.instance();
         Properties config = cf.loadConfiguration();
         host = config.getProperty("udp.host");
         port = Integer.valueOf(config.getProperty("udp.port"));

@@ -1,6 +1,6 @@
 package sensor.udp;
 
-import gateway.util.ConfigurationFile;
+import gateway.util.Configurations;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +28,7 @@ public class UDPClient {
     public void init() throws SocketException, FileNotFoundException {
         logger.info("Initializing udp Client...");
 
-        ConfigurationFile cf = ConfigurationFile.instance();
+        Configurations cf = Configurations.instance();
         Properties config = cf.loadConfiguration();
         if (config == null) {
             throw new FileNotFoundException("Configuration file not found.");
