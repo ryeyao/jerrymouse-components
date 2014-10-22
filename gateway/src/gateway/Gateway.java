@@ -34,7 +34,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Gateway extends ComponentBase {
 
     static {
-//        System.setProperty("log4j.configurationFile", "log4j2.xml");
         Thread.currentThread().setContextClassLoader(Gateway.class.getClassLoader());
     }
     static final Logger logger = LogManager.getLogger("[Framework] " + Gateway.class.getName());
@@ -47,13 +46,11 @@ public class Gateway extends ComponentBase {
 
     private HashMap<String, Property> handlers = new HashMap<String, Property>();
 
-//    private ConfigurableVars confVars = new ConfigurableVars();
-
     private Class<CommandHandler> commandHandlerClass = null;
     private Class<PreProcessor> preprocessorClass = null;
     private Class<Worker> workerClass = null;
 
-    public void loadConfiguration() throws ConfigurationException {
+    private void loadConfiguration() throws ConfigurationException {
         IDMAP_FILE = getComponentBase() + File.separatorChar + IDMAP_FILE;
         XML_DIR = getComponentBase() + File.separatorChar + XML_DIR;
         RES_DEF_DIR = getComponentBase() + File.separatorChar + RES_DEF_DIR;
@@ -64,21 +61,9 @@ public class Gateway extends ComponentBase {
         cf.addConfiguration(new PropertiesConfiguration(IDMAP_FILE));
     }
 
-    @Override
-    public void initInternal() throws LifecycleException {
+    private void parseConfiguration() throws LifecycleException {
 
-        Thread.currentThread().setContextClassLoader(Gateway.class.getClassLoader());
-        logger.info("Initialize gateway");
-        try {
-            loadConfiguration();
-        } catch (ConfigurationException e) {
-            throw new LifecycleException("Load configuration error.");
-        }
         Configurations config = Configurations.instance();
-
-//        if (config == null) {
-//            throw new LifecycleException("Configuration file {} not found, exiting...");
-//        }
 
         serverHost = config.getString(SERVER_HOST, serverHost);
         serverPort = config.getString(SERVER_PORT, serverPort);
@@ -101,10 +86,10 @@ public class Gateway extends ComponentBase {
             retryIntervalSecond = config.getInt(RETRY_INTERVAL_SECOND, retryIntervalSecond);
         }
 
-        System.setProperty(DC.SP_HOST, serverHost);
-        System.setProperty(DC.SP_PORT, serverPort);
-
         clientVars.worker = config.getString(clientVars.WORKER, clientVars.worker);
+    }
+
+    private void loadClasses() throws LifecycleException {
 
         // load class
         ClassLoader classLoader = this.getClass().getClassLoader();
@@ -118,12 +103,31 @@ public class Gateway extends ComponentBase {
             }
 
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return;
+            throw new LifecycleException("Load classes failed.");
+        }
+    }
+
+    @Override
+    public void initInternal() throws LifecycleException {
+
+        Thread.currentThread().setContextClassLoader(Gateway.class.getClassLoader());
+
+        logger.info("Initialize gateway");
+        try {
+            loadConfiguration();
+        } catch (ConfigurationException e) {
+            throw new LifecycleException("Load configuration error.");
         }
 
+        parseConfiguration();
+
+        loadClasses();
+
+        System.setProperty(DC.SP_HOST, serverHost);
+        System.setProperty(DC.SP_PORT, serverPort);
+
         try {
-            while (!(useAsync? initializeResourcesAsync(): initializeResources())) {
+            while (!(initializeResources(useAsync))) {
                 if (!autoRetry) {
                     throw new LifecycleException("Initialization failed. Finished working.");
                 }
@@ -132,18 +136,8 @@ public class Gateway extends ComponentBase {
                 Thread.sleep(retryIntervalSecond * 1000);
             }
             logger.info("Initialization done.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new LifecycleException("Initialization failed. Finished working.");
         }
     }
 
@@ -224,6 +218,14 @@ public class Gateway extends ComponentBase {
         }
 
         return res;
+    }
+
+    private boolean initializeResources(boolean enableAsync) throws ParserConfigurationException, IllegalAccessException, InstantiationException, SAXException, IOException {
+        if (enableAsync) {
+            return initializeResourcesAsync();
+        } else {
+            return initializeResources();
+        }
     }
 
     private boolean initializeResourcesAsync() throws IOException, ParserConfigurationException, SAXException, IllegalAccessException, InstantiationException {
