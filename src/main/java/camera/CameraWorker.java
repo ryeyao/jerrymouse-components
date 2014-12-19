@@ -1,17 +1,13 @@
-package camera.src.camera;
+package camera;
 
-import gateway.Gateway;
 import gateway.abstracthandler.Worker;
 import gateway.util.ResourceCache;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import wshare.dc.resource.DataItem;
-import wshare.dc.resource.Property;
 import wshare.dc.resource.Resource;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Properties;
 
 /**
  * Created with IntelliJ IDEA.

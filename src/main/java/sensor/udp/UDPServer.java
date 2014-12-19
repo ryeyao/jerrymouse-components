@@ -1,6 +1,6 @@
-package sensor.src.sensor.udp;
+package sensor.udp;
 
-import cn.iie.gaia.util.StoppableLoopThread;
+import org.omg.gaia.util.StoppableLoopThread;
 import gateway.util.Configurations;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

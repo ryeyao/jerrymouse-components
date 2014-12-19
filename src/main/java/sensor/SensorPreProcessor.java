@@ -1,8 +1,8 @@
-package sensor.src.sensor;
+package sensor;
 
 import gateway.abstracthandler.PreProcessor;
-import sensor.src.sensor.udp.UDPDataHandler;
-import sensor.src.sensor.udp.UDPServer;
+import sensor.udp.UDPDataHandler;
+import sensor.udp.UDPServer;
 
 import java.io.FileNotFoundException;
 import java.net.SocketException;

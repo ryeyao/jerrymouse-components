@@ -1,4 +1,4 @@
-package sensor.src.sensor.udp;
+package sensor.udp;
 
 import gateway.util.Configurations;
 import org.apache.logging.log4j.LogManager;

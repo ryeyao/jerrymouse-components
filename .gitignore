@@ -127,6 +127,6 @@ gradle-app.setting
 
 
 ### Device definition files
-src/main/java/camera/resources/
-src/main/java/sensor/resources/
+src/main/resources/camera/resources/
+src/main/resources/sensor/resources/
 

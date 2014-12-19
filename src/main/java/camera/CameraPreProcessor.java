@@ -1,4 +1,4 @@
-package camera.src.camera;
+package camera;
 
 import gateway.abstracthandler.PreProcessor;
 

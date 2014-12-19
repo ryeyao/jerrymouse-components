@@ -1,4 +1,4 @@
-package sensor.src.sensor.udp;
+package sensor.udp;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;

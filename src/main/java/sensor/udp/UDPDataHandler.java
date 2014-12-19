@@ -1,19 +1,14 @@
-package sensor.src.sensor.udp;
+package sensor.udp;
 
-import gateway.Gateway;
-import gateway.util.MoreResourceInfo;
 import gateway.util.ResourceCache;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import wshare.dc.DC;
 import wshare.dc.resource.DataItem;
 import wshare.dc.resource.Property;
 import wshare.dc.resource.Resource;
-import wshare.dc.resource.ResourceInfo;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.Properties;
 
 /**
  * Created by Rye on 2/22/14.

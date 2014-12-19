@@ -1,32 +1,110 @@
 apply plugin: 'java'
 
 sourceCompatibility = 1.7
-version = '1.0'
+version = '1.5'
+/**
+ *  Jerrymouse lib should never be placed in component's COMP-INF/lib or COMP-INF/classes
+ *  which will cause Gaia failing to check the type of compent's class loaded (gateway.Gateway).
+ *  Because classes loaded from component's classpath (COMP-INF/lib COMP-INF/classes) are not
+ *  loaded by the same loader that loads Gaia(the framework)'s classes and the latter's
+ *  classloader is commonClassloader while the former's is ComponentClassLoader.
+ *  Gaia checks if an instance of the class loaded is an instance of the class it has.
+ *  Since they are loaded by different classloader, they will be considered as different classes,
+ *  thus an instanceof sentence will give false as a result.
+ */
 
 repositories {
 //    mavenLocal()
 
-    maven {
-        url "http://10.10.2.23/nexus/content/groups/public/"
-    }
     mavenCentral()
+    maven {
+//        url "http://10.10.2.23/nexus/content/groups/public/"
+        url "http://10.10.2.23/nexus/content/repositories/thirdparty";
+
+        credentials {
+            username = 'admin'
+            password = 'admin123'
+        }
+    }
 }
 
 compileJava {
     options.encoding = "UTF-8"
 }
 dependencies {
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.0'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.0'
-
-
-    compile group: 'iotis.commons', name: 'jerrymouse-core', version: '1.0'
+    compile group: 'iotis.commons', name: 'jerrymouse-core', version: '1.5'
     compile group: 'iotis.commons', name: 'rpc', version: '2.0.4'
+
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.0-beta9'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.0-beta9'
+
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.2.4'
+
     compile group: 'iotis.wshare.wsdc', name: 'wsdc-api', version: '2.0.1.a'
-    compile group: 'iotis.wshare.gateway', name: 'gateway-jcomp', version: '1.0'
+    compile group: 'iotis.wshare.gateway', name: 'gateway-jcomp', version: '1.5'
     compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
     compile group: 'commons-configuration', name: 'commons-configuration', version: '1.10'
 
+
     testCompile group: 'junit', name: 'junit', version: '4.11'
+
+}
+
+jar {
+
+
+    doLast {
+        def outArtifactDir = 'build/artifact/' + project.name
+
+        def camCompDirFile = new File( outArtifactDir + '/camera/COMP-INF')
+        def sensorCompDirFile = new File( outArtifactDir + '/sensor/COMP-INF')
+
+        def camCompClsDirFile = new File(camCompDirFile.getAbsolutePath() + '/classes')
+        def sensorCompClsDirFile = new File(sensorCompDirFile.getAbsolutePath() + '/classes')
+        def camCompLibDirFile = new File(camCompDirFile.getAbsolutePath() + '/lib')
+        def sensorCompLibDirFile = new File(sensorCompDirFile.getAbsolutePath() + '/lib')
+
+        camCompClsDirFile.mkdirs()
+        sensorCompClsDirFile.mkdirs()
+        camCompLibDirFile.mkdirs()
+        sensorCompLibDirFile.mkdirs()
+
+        copy {
+            from sourceSets.main.resources.srcDirs[0].getAbsolutePath() + '/camera/'
+            into outArtifactDir + '/camera'
+        }
+        copy {
+            from sourceSets.main.resources.srcDirs[0].getAbsolutePath() + '/sensor/'
+            into outArtifactDir + '/sensor'
+        }
+        copy {
+            from sourceSets.main.output.classesDir.getAbsolutePath() + '/sensor/'
+            into sensorCompClsDirFile.getAbsolutePath() + '/sensor/'
+        }
+
+        copy {
+            from sourceSets.main.output.classesDir.getAbsolutePath() + '/camera/'
+            into camCompClsDirFile.getAbsolutePath() + '/camera/'
+        }
+
+        copy {
+            from configurations.compile
+            into sensorCompLibDirFile
+            exclude 'jerrymouse-core-1.5.jar'
+        }
+
+        copy {
+            from configurations.compile
+            into camCompLibDirFile
+            exclude 'jerrymouse-core-1.5.jar'
+        }
+
+    }
+//    from {
+//        configurations.compile.collect {
+//            it.isDirectory() ? it : zipTree(it)
+//        }
+//    }
+
 }

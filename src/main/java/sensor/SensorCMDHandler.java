@@ -1,10 +1,10 @@
-package sensor.src.sensor;
+package sensor;
 
 import gateway.abstracthandler.CommandHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sensor.src.sensor.udp.UDPClient;
-import sensor.src.sensor.udp.UDPPacket;
+import sensor.udp.UDPClient;
+import sensor.udp.UDPPacket;
 import wshare.dc.resource.DataItem;
 import wshare.dc.resource.PID;
 
